@@ -5,6 +5,7 @@ var lng='';
 var vicFunc = new victoryExchangeFunc();
 var userProfileData=false;
 var opendopinfo=true;
+var relise=true;
 var cityIsSearched=0;
 var loading = 0;
 var last_page=0;
@@ -23,7 +24,25 @@ var lastrequestdata='';
 var lastrequestvariable='';
 var cargo_types=lang.cargo_types;
 var loading_types=lang.loading_types;
+/*
+window.Echo = new Echo({
+    broadcaster: 'socket.io',
+    host: 'http://victrack.ru:6001',
+    auth:
+    {
+        headers:
+        {
+            'Authorization': window.localStorage.getItem("access_token")
+        }
+    }
+});
 
+window.Echo.private('some-private-channel')
+    .listen('SomeEvent', (e) => {
+        console.log(e);
+    });
+
+*/
 function victoryExchangeFunc() {
 	var _this=this;	
 	var requestnow = 0; //have request now
@@ -56,24 +75,7 @@ this.route = function(type, data, responseData){
 			if(type=='getpath'){return{path:'login/', method:'POST'}; }else{_this.openfirst(responseData);}
 		break;
 		case 'login':
-			if(type=='getpath'){return{path:'login/',method:'POST'};}else{
-            /*  import Echo from 'laravel-echo';
-                window.Echo = new Echo({
-                    broadcaster: 'socket.io',
-                    host: 'http://victrack.ru:6001',
-                    auth:
-                    {
-                        headers:
-                        {
-                            'Authorization': 'Bearer '+ token
-                        }
-                    }
-                });
-                window.Echo.private('some-private-channel')
-                    .listen('SomeEvent', (e) => {
-                        console.log(e);
-                });*/
-            }
+			if(type=='getpath'){return{path:'login/',method:'POST'};}else{}
 		break;	
 		case 'firstperson':
 			if(type=='getpath'){return{path:'settings/profile/edit',method:'GET'};}else{userProfileData=responseData; }
@@ -273,15 +275,16 @@ this.route = function(type, data, responseData){
                   }else{
                      window.localStorage.clear();
                      myApp.closePanel();
-                     mainView.router.loadPage("index.html");
+						   mainView.router.loadPage("index.html");
                      _this.openInfoPopup(lang.serveer_disconnect);
+						   mainView.router.loadPage("index.html");
 					  }
 					}
 
-
+					var responseData ='';
                 if(xhr.status==200) {
 
-                        var responseData ='';
+                    
                         if(xhr.responseText!=='') {
 
                            responseData = JSON.parse(xhr.responseText);
@@ -304,8 +307,15 @@ this.route = function(type, data, responseData){
                         $$('#entererror').html(html);
 
                         myApp.popup('.popup-wrongpass');
-                    }
-						  
+                    }else if(xhr.status>=400 && parent=='activationuserlogin') {
+							   responseData ='';
+                        if(xhr.responseText!=='') {
+                           responseData = JSON.parse(xhr.responseText);						   
+                         }
+							 vicFunc.route('setdata',parent,responseData);
+							 myApp.hideIndicator();
+							}
+							
                     if(xhr.status>=400 && parent=='cities_search') {
                         myApp.hideIndicator();
                         cityIsSearched=0;
@@ -1023,28 +1033,45 @@ this.openfirst = function(responseData){
       '</div>' +
     '</div>'
   );
-	
 	$$('#addcar').on('click', function () {
-	 
 	    myApp.popup('.popup-addcars');
 		 myApp.closeModal('.picker-modal.modal-in');
 	});
-	} 
+	}
+	 $$('#menuroutes').show();
+	 $$('#menutiket').show();
+	 $$('#menusubscribe').show();
+	 $$('#menucars').show();	
 	}else{
 	 $$('#menuroutes').hide();
-	$$('#menutiket').hide();
-	$$('#menusubscribe').hide();
-	$$('#menucars').hide();		
+	 $$('#menutiket').hide();
+	 $$('#menusubscribe').hide();
+	 $$('#menucars').hide();		
 	}
 	$$('#menuperson').on('click', function () {
 	   myApp.closeModal('.picker-modal.modal-in');
 	});
-        
+   window.Echo = new Echo({
+    broadcaster: 'socket.io',
+    host: 'http://victrack.ru:6001',
+    auth:
+    {
+        headers:
+        {
+            'Authorization': window.localStorage.getItem("access_token")
+        }
+    }
+});
+
+window.Echo.private('some-private-channel')
+    .listen('SomeEvent', (e) => {
+        console.log(e);
+    });     
 };
 this.activationuserlogin=function(responseData){
 	if(responseData.message=="auth.timeout"){
-		var timeout=responseData.timeout*1100;
-		setTimeout(function(){
+		var timeout=responseData.timeout*1100;	
+		setTimeout(function(){			
 		  data={resend_token: window.localStorage.getItem("resend_token")};
         vicFunc.getdataserver('activationuserlogin',data);
 		 }, timeout); 
@@ -1063,7 +1090,9 @@ this.isUndefined=function(v){
 	};
 }
 function showlog(m){
-   console.log(m);    
+	if(!relise){
+   console.log(m);
+	}
 }
 // Initialize app
 var myApp = new Framework7({
