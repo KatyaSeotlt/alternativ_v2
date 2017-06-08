@@ -1,12 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="ru.seotlt.victory" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>alternativa</name>
+    <name>victorytracker</name>
     <description>
-       alternativa
+       victorytracker
     </description>
-    <author email="info@seotlt.ru" href="http://seotlt.ru">
-        seotlt
-    </author>
+    <author email="info@seotlt.ru" href="http://seotlt.ru">seotlt</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

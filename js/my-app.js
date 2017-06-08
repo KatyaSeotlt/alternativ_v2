@@ -1105,7 +1105,9 @@ var mainView = myApp.addView('.view-main', {
     // Because we want to use dynamic navbar, we need to enable it for this view:
    /* dynamicNavbar: true*/
 });
-
+function login_click(){
+ vicFunc.getdataserver('login_first', {phone:$$('#loginPhone').val().replace('+7', 8),password:$$('#loginPassword').val()});
+}
 // Logins
 $$(document).on('deviceready', function () {    
     if(vicFunc.isLogin()){
@@ -1116,12 +1118,13 @@ $$(document).on('deviceready', function () {
     dataforopen.user.role_id= window.localStorage.getItem("role_id");   
     vicFunc.openfirst(dataforopen);
     }
-    $$('#enter_login_form').on('click',  function(){
+   /* $$('#enter_login_form').on('click',  function(){
     showlog($$('#loginPhone').val());
     loginclickisset=1;
     vicFunc.getdataserver('login_first', {phone:$$('#loginPhone').val().replace('+7', 8),password:$$('#loginPassword').val()});
-    });      
+    });      */
 });
+/*
 myApp.onPageInit('index', function () {
     if(loginclickisset!=1){
    $$('#enter_login_form').on('click',  function(){
@@ -1129,7 +1132,7 @@ myApp.onPageInit('index', function () {
     vicFunc.getdataserver('login_first', {phone:$$('#loginPhone').val().replace('+7', 8),password:$$('#loginPassword').val()});    
     });
     }
-   });
+   });*/
 
 myApp.onPageInit('map', function () {
      ymaps.ready(function () {    
