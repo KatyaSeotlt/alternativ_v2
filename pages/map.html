@@ -1,0 +1,36 @@
+<!-- We don't need a full layout in this file because this page will be parsed with Ajax. -->
+<!-- Top Navbar-->
+<div class="pages ">
+ <div data-page="map" class="page tops">
+   <div class="navbar">
+    <div class="navbar-inner">
+     <div class="left">
+      <a href="#" data-panel="left"  class="link open-panel orp"><span class="ico map-ico-line3"></span></a>
+	       <span class="searcpanelname">Поиск</span>
+    </div>
+     <div class="right">
+					 <a href="#" data-panel="right"  class="link open-panel">	<span class="ico map-ico-search"></span></a>
+      <a href="pages/routes.html" class="link"><span class="ico map-ico-routes"></span></a>
+     </div>
+    </div>
+   </div>
+  
+        <div class="page-content">
+            
+            <div class="content-block ">
+                <div class="icon-block"><span class='icon-man'></span></div>
+
+                <div class="map" id="map"></div>
+                <!--объекты управления на карте -->
+                <div class="purpose" id="porpose" onclick="myMap.setCenter([lat, lng], 9);"></div>
+                <div class="reload" id="reload"></div>
+                <div class="dispetcher" id="dispetcher"></div>
+                <!--//объекты управления на карте -->
+            </div>
+												<div class=" bottomplansh mapbottom"><a href="#" class="ico menu-ico-map"  onclick="myMap.setCenter([lat, lng], 9);"></a><a href="pages/list.html"  class="ico menu-ico-list"></a></div>     
+        </div>
+
+    </div>
+
+</div>
+

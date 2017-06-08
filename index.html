@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <title>Viktorytracker</title>
+        <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
+        <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
+        <link rel="stylesheet" href="lib/framework7/css/framework7-icons.css">              
+        <link rel="stylesheet/less" type="text/css" href="css/styles.less">
+        <script src="js/less.min.js" type="text/javascript"></script>
+        <script>
+        less.modifyVars({
+        '@dpscale': (1/window.devicePixelRatio)+0.5
+         });
+        </script>
+    </head>
+    <body>
+ <!-- Status bar overlay for full screen mode (PhoneGap) -->
+      <div class="statusbar-overlay"></div>
+      <!-- Panels overlay-->
+      <div class="panel-overlay"></div>
+      <!-- Left panel with reveal effect-->
+      <div class="panel panel-left panel-reveal">
+         <div class="" id="leftpanel">
+            <div class="personal_block">
+               <div id="exit_icon"><i class="fa fa-sign-out" aria-hidden="true"></i></div>
+               <div class="personal_logo"></div>
+               <div class="personal_name"></div>
+               <div class="personal_type"></div>
+            </div>
+            <div class="list-block">
+               <ul>
+                  <li class="item-content" id="menumap">
+                     <a href="pages/map.html" class="item-content">
+                        <div class="item-media"><i class="ico menu-ico-map" aria-hidden="true"></i></div>
+                        <div class="item-inner">
+                           <div class="item-title">Карта</div>
+                        </div>
+                     </a>
+                  </li>
+                  <li class="item-content" id="menulist" >
+                     <a href="pages/list.html" class="item-content">
+                        <div class="item-media"><i class="ico menu-ico-list" aria-hidden="true"></i></div>
+                        <div class="item-inner">
+                           <div class="item-title">Список</div>
+                        </div>
+                     </a>
+                  </li>
+                  <li class="item-content" id="menuroutes">
+                     <a href="pages/routes.html" class="item-content">
+                        <div class="item-media"><i class="ico menu-ico-routes" aria-hidden="true"></i></div>
+                        <div class="item-inner">
+                           <div class="item-title">Мои маршруты</div>
+                           <div class="item-after"><span id="routes" class="badge">0</span></div>
+                        </div>
+                     </a>
+                  </li>
+                  <li class="item-content" id="menutiket">
+                     <a href="pages/message.html" class="item-content">
+                        <div class="item-media"><i class="ico menu-ico-comment" aria-hidden="true"></i></div>
+                        <div class="item-inner">
+                           <div class="item-title">Тикеты</div>
+                           <div class="item-after"><span id="ticket" class="badge">0</span></div>
+                        </div>
+                     </a>
+                  </li>
+                  <li class="item-content" id="menusubscribe">
+                     <a href="pages/subscribe.html" class="item-content">
+                        <div class="item-media"><i class="ico menu-ico-star"></i></div>
+                        <div class="item-inner">
+                           <div class="item-title">Мои подписки</div>
+                           <div class="item-after"><span id="subscribe" class="badge">0</span></div>
+                        </div>
+                     </a>
+                  </li>
+                  <li class="item-content" id="menucars">
+                     <a href="pages/cars.html" class="item-content">
+                        <div class="item-media"><i class="ico menu-ico-truck" aria-hidden="true"></i></div>
+                        <div class="item-inner">
+                           <div class="item-title">Мои машины</div>
+                           <div class="item-after"><span id="cars" class="badge">0</span></div>
+                        </div>
+                     </a>
+                  </li>
+                  <li class="item-content" id="menuperson">
+                     <a href="pages/person.html" class="item-content">
+                        <div class="item-media"><i class="ico menu-ico-user" aria-hidden="true"></i></div>
+                        <div class="item-inner">
+                           <div class="item-title">Личные данные</div>
+                        </div>
+                  </li>
+               </ul>
+               </a>
+            </div>
+         </div>
+      </div>
+      <!-- Right Panel with Cover effect -->
+      <div class="panel panel-right panel-cover">
+         <div class="view view-right">
+            
+            <div class="content-block search-block">
+               <div class="top">
+                  <div class="name">Параметры поиска</div>
+                  <div class=" button-container">
+                     <button class="button save" id="search_save"><i class="f7-icons">check</i></button>
+                     <a href="#" class="close close-panel"><i class="f7-icons">close</i></a>
+                  </div>
+               </div>               
+               <div class="searchform">
+                  <div class="begin">
+                     <span class="icon_map_routes"></span>
+                     <div class="address-name">
+                        <input type="hidden" id="search_begin_id" value="0">
+                        <div class="city"><input class="city_search" type="text" placeholder="ОТКУДА ВЕЗЕМ" id="search_begin" value="" /></div>
+                        <div class="region region_search_begin"></div>
+                     </div>
+                     <div class="address-name">
+                        <input type="hidden" id="search_end_id" value="0">
+                        <div class="city"><input  class="city_search"  type="text" placeholder="КУДА ВЕЗЕМ" id="search_end" value="" /></div>
+                        <div class="region region_search_end"></div>
+                     </div>
+                  </div>
+                  <div class="datetime">
+                     <span class="ico icon-dates-blue"></span>
+                     <input type="text" placeholder="дата начала" id="calendar_date_from">
+                     <input type="text" placeholder="дата окончания" id="calendar_date_to">
+                  </div>
+                  <div class="selector">
+                     <div class="label" id="onlymycars">Только для моих машин</div>
+                     <div class="item-input">
+                        <label class="label-switch">
+                           <input type="checkbox" id="only_cars"  name="only_cars"  checked="checked">
+                           <div class="checkbox"></div>
+                        </label>
+                     </div>
+                  </div>
+                  <div class="selector">
+                     <div class="label" id="onlymysubscribe">Только подписки</div>
+                     <div class="item-input">
+                        <label class="label-switch">
+                           <input type="checkbox" id="only_subscribe" name="only_subscribe" checked="checked">
+                           <div class="checkbox"></div>
+                        </label>
+                     </div>
+                  </div>
+                  <div class="accordion-list">
+                     <div class="accordion-item">
+                        <div class="accordion-item-toggle">Ставка</div>
+                        <div class="accordion-item-content">
+                           <div class="rateblock">
+                              <span>Ставка от</span>
+                              <input type="text" name="rate"  placeholder="Ставка"  id="rate_search" value="">
+                              <select name="carrier_rate_type" id="carrier_rate_type">
+                                 <option value="0">руб</option>
+                                 <option value="1">руб/км</option>
+                              </select>
+                           </div>
+                           <div class="pays">
+                              <a href="#" class="item-link smart-select" data-open-in="popup"   data-page-title="Варианты оплаты"  data-popup-close-text="Закрыть">
+                                 <!-- select -->
+                                 <select name="pays_type" id="pays_type"  multiple="multiple">
+                                    <option value="1">100% по ОТТН безнал. с НДС</option>
+                                    <option value="2">100% по ОТТН безнал. без НДС</option>
+                                    <option value="3">100% по ФТТН</option>
+                                    <option value="4">100% по ФТТН без НДС</option>
+                                    <option value="5">100% по ФТТН + квиток</option>
+                                    <option value="6">50% по ФТТН, 50% по ОТТН безнал. с НДС</option>
+                                    <option value="7">50/50 по ФТТН без НДС</option>
+                                    <option value="8">Наличка на выгрузке</option>
+                                    <option value="9">Наличка на карту</option>
+                                    <option value="10">"Наличка на погрузке</option>
+                                    <option value="11">Предоплата</option>
+                                    <option value="12">50/50 по ФТТН с НДС</option>
+                                 </select>
+                                 <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                       <div class="item-title p1">Варианты оплаты</div>
+                                       <div class="item-after"></div>
+                                    </div>
+                                 </div>
+                              </a>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="accordion-item accordion-item-expanded">
+                        <div class="accordion-item-toggle">Параметры груза</div>
+                        <div class="accordion-item-content">
+                           <div class="body block2">
+                              <div>
+                                 <!--div class="length-name type-name">Тип</div-->
+                                 <div class="carlength type-value">
+                                    <a href="#" class="item-link smart-select" data-open-in="popup"   data-page-title="Тип груза"  data-popup-close-text="закрыть">
+                                       <!-- select -->
+                                       <select name="cargo_type" id="cargo_type"  multiple="multiple">
+                                          <option value="1">Автошины</option>
+                                          <option value="2">Алкогольные напитки</option>
+                                          <option value="3">Безалкогольные напитки</option>
+                                          <option value="4">Бумага</option>
+                                          <option value="5">Бытовая техника</option>
+                                          <option value="6">Грибы</option>
+                                          <option value="7">Древесина</option>
+                                          <option value="8">Древесный уголь</option>
+                                          <option value="9">Зерно и семена (в упаковк</option>
+                                          <option value="10">Изделия из кожи</option>
+                                          <option value="11">Изделия из металла</option>
+                                          <option value="12">Казеин</option>
+                                          <option value="13">Канц. товары</option>
+                                          <option value="14">Ковры</option>
+                                          <option value="15">Компьютеры</option>
+                                          <option value="16">Консервы</option>
+                                          <option value="17">Контейнер 40фут</option>
+                                          <option value="18">Макулатура</option>
+                                          <option value="19">Мебель</option>
+                                          <option value="20">Медикаменты</option>
+                                          <option value="21">Металл</option>
+                                          <option value="22">Металлолом</option>
+                                          <option value="23">Молоко сухое</option>
+                                          <option value="24">Мороженое</option>
+                                          <option value="25">Мясо</option>
+                                          <option value="26">Нефтепродукты</option>
+                                          <option value="27">Оборудование и запчасти</option>
+                                          <option value="28">Обувь</option>
+                                          <option value="29">Овощи</option>
+                                          <option value="30">Одежда</option>
+                                          <option value="31">Парфюмерия и косметика</option>
+                                          <option value="32">Пиво</option>
+                                          <option value="33">Пластик</option>
+                                          <option value="34">Продукты питания</option>
+                                          <option value="35">Птица </option>
+                                          <option value="36">Изделия из резины</option>
+                                          <option value="37">Рыба (неживая)</option>
+                                          <option value="38">Сантехника</option>
+                                          <option value="39">Сахар</option>
+                                          <option value="40">Сборный груз</option>
+                                          <option value="41">Стекло и фарфор</option>
+                                          <option value="42">Стройматериалы</option>
+                                          <option value="43">Табачные изделия</option>
+                                          <option value="44">Тара и упаковка</option>
+                                          <option value="45">Текстиль</option>
+                                          <option value="46">ТНП</option>
+                                          <option value="47">Торф</option>
+                                          <option value="50">Транспортные средства</option>
+                                          <option value="51">Удобрения</option>
+                                          <option value="52">Фрукты</option>
+                                          <option value="53">Хим. продукты опасные</option>
+                                          <option value="54">Хим. продукты неопасные</option>
+                                          <option value="55">Хозтовары</option>
+                                          <option value="56">Шкуры мокросоленые</option>
+                                          <option value="57">Электроника</option>
+                                          <option value="58">Ягоды</option>
+                                          <option value="59">Другой</option>
+                                          <option value="60">ДСП</option>
+                                          <option value="61">Утеплитель</option>
+                                          <option value="62">Кирпич</option>
+                                          <option value="63">Трубы</option>
+                                          <option value="64">ЛДСП</option>
+                                          <option value="65">Фанера</option>
+                                          <option value="66">Минвата</option>
+                                          <option value="67">Пенопласт</option>
+                                          <option value="68">Гофрокартон</option>
+                                          <option value="70">Стеклотара (бутылки и др.</option>
+                                          <option value="71">Мука</option>
+                                          <option value="73">Поддоны</option>
+                                          <option value="74">Чипсы</option>
+                                          <option value="75">Соки</option>
+                                          <option value="76">Цемент</option>
+                                          <option value="77">Кондитерские изделия</option>
+                                          <option value="78">Кабель</option>
+                                          <option value="79">Холодильное оборудование</option>
+                                          <option value="80">Доски</option>
+                                          <option value="81">Пиломатериалы</option>
+                                          <option value="82">Бытовая химия</option>
+                                          <option value="83">ДВП</option>
+                                          <option value="84">Контейнер 20фут</option>
+                                          <option value="85">Крупа</option>
+                                          <option value="86">Металлопрокат</option>
+                                          <option value="87">Вагонка</option>
+                                          <option value="88">Ферросплавы</option>
+                                          <option value="89">Кормовые/пищевые добавки</option>
+                                          <option value="90">Игрушки</option>
+                                          <option value="91">Оборудование медицинское</option>
+                                          <option value="92">Зерно и семена (насыпью)</option>
+                                          <option value="93">Цветы</option>
+                                          <option value="94">Шпалы</option>
+                                          <option value="95">ЖБИ</option>
+                                          <option value="96">Гипс</option>
+                                          <option value="97">Газосиликатные блоки</option>
+                                          <option value="98">Арматура</option>
+                                          <option value="100">Сэндвич-панели</option>
+                                          <option value="101">Двери</option>
+                                          <option value="102">Домашний переезд</option>
+                                          <option value="103">Огнеупорная продукция</option>
+                                          <option value="105">Инструмент</option>
+                                          <option value="106">Люди</option>
+                                       </select>
+                                       <div class="item-content">
+                                          <div class="item-media"></div>
+                                          <div class="item-inner">
+                                             <div class="item-title p1">Тип груза</div>
+                                             <div class="item-after"></div>
+                                          </div>
+                                       </div>
+                                    </a>
+                                 </div>
+                              </div>
+                              <div>
+                                 <div class="width-name type-name">Вес</div>
+                                 <div class="carwidth type-value" ><input type="text"  placeholder="от"  name="weight_from" id="weight_from"  value=""><input type="text" id="weight_to"  placeholder="до"  name="weight_to" value=""></div>
+                              </div>
+                              <div>
+                                 <div class="height-name type-name">Объем</div>
+                                 <div class="carheight type-value"><input type="text"  placeholder="от"  name="volume_from" id="volume_from" value=""><input type="text"  id="volume_to" name="volume_to"  placeholder="до"  value=""></div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="accordion-item">
+                        <div class="accordion-item-toggle">Транспорт</div>
+                        <div class="accordion-item-content">
+                           <div class="body block3">
+                              <a href="#" class="item-link smart-select" data-open-in="popup"   data-page-title="Тип транспортa"  data-popup-close-text="закрыть">
+                                 <!-- select -->
+                                 <select name="car_type" id="car_type" multiple="multiple">
+                                    <option value="1">пухтовоз</option>
+                                    <option value="2">реф. с перегородкой</option>
+                                    <option value="3">реф. мультирежимный</option>
+                                    <option value="4">ломовоз</option>
+                                    <option value="5">скотовоз</option>
+                                    <option value="6">автобус</option>
+                                    <option value="7">трал</option>
+                                    <option value="8">газовоз</option>
+                                    <option value="9">низкорамный</option>
+                                    <option value="10">цельнометалл.</option>
+                                    <option value="11">все закр.+изотерм</option>
+                                    <option value="12">все открытые</option>
+                                    <option value="13">седельный тягач</option>
+                                    <option value="14">лесовоз</option>
+                                    <option value="15">цистерна</option>
+                                    <option value="16">автотранспортер</option>
+                                    <option value="17">кран</option>
+                                    <option value="18">конт.площадка</option>
+                                    <option value="19">самосвал</option>
+                                    <option value="20">микроавтобус</option>
+                                    <option value="21">фургон</option>
+                                    <option value="22">изотермический</option>
+                                    <option value="23">рефрижератор</option>
+                                    <option value="24">тентованный</option>
+                                    <option value="25">контейнер</option>
+                                    <option value="26">бортовой</option>
+                                    <option value="27">цементовоз</option>
+                                    <option value="28">муковоз</option>
+                                    <option value="29">автовоз</option>
+                                    <option value="30">трубовоз</option>
+                                    <option value="31">шаланда</option>
+                                    <option value="32">манипулятор</option>
+                                    <option value="33">панелевоз</option>
+                                    <option value="34">зерновоз</option>
+                                    <option value="35">стекловоз</option>
+                                    <option value="36">бетоновоз</option>
+                                    <option value="37">кормовоз</option>
+                                    <option value="38">автовышка</option>
+                                    <option value="39">открытый конт.</option>
+                                    <option value="40">щеповоз</option>
+                                    <option value="41">коневоз</option>
+                                    <option value="42">эвакуатор</option>
+                                    <option value="43">низкорам.платф.</option>
+                                    <option value="44">пикап</option>
+                                    <option value="45">бензовоз</option>
+                                    <option value="46">вездеход</option>
+                                    <option value="47">негабарит</option>
+                                    <option value="48">телескопический</option>
+                                    <option value="49">битумовоз</option>
+                                    <option value="50">реф.-тушевоз</option>
+                                    <option value="51">пирамида</option>
+                                    <option value="52">балковоз(негабарит)</option>
+                                    <option value="53">рулоновоз</option>
+                                    <option value="54">площадка без бортов</option>
+                                    <option value="55">реф.+изотерм</option>
+                                 </select>
+                                 <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                       <div class="item-title p1">Тип</div>
+                                       <div class="item-after"></div>
+                                    </div>
+                                 </div>
+                              </a>
+                              <a href="#" class="item-link smart-select" data-open-in="popup"   data-page-title="загрузка транспортa"  data-popup-close-text="закрыть">
+                                 <!-- select -->
+                                 <select name="car_in" id="car_in"  multiple="multiple">
+                                    <option value="1">верхняя</option>
+                                    <option value="2">боковая</option>
+                                    <option value="4">задняя</option>
+                                    <option value="8">с полной растентовкой</option>
+                                    <option value="32">со снятием поперечных пер</option>
+                                    <option value="128">без ворот</option>
+                                    <option value="256">гидроборт</option>
+                                    <option value="512">аппарели</option>
+                                    <option value="1024">с обрешеткой</option>
+                                    <option value="2048">с бортами</option>
+                                    <option value="4096">боковая с 2-х сторон</option>
+                                 </select>
+                                 <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                       <div class="item-title p1">Загрузка</div>
+                                       <div class="item-after"></div>
+                                    </div>
+                                 </div>
+                              </a>
+                              <a href="#" class="item-link smart-select" data-open-in="popup"   data-page-title="разгрузка транспортa"  data-popup-close-text="закрыть">
+                                 <!-- select -->
+                                 <select name="car_out" id="car_out"  multiple="multiple">
+                                    <option value="1">верхняя</option>
+                                    <option value="2">боковая</option>
+                                    <option value="4">задняя</option>
+                                    <option value="8">с полной растентовкой</option>
+                                    <option value="32">со снятием поперечных пер</option>
+                                    <option value="128">без ворот</option>
+                                    <option value="256">гидроборт</option>
+                                    <option value="512">аппарели</option>
+                                    <option value="1024">с обрешеткой</option>
+                                    <option value="2048">с бортами</option>
+                                    <option value="4096">боковая с 2-х сторон</option>
+                                 </select>
+                                 <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                       <div class="item-title p1">Разгрузка</div>
+                                       <div class="item-after"></div>
+                                    </div>
+                                 </div>
+                              </a>
+                              <div class="body block2">
+                                 <div>
+                                    <div class="width-name type-name">Ширина</div>
+                                    <div class="carwidth type-value" ><input type="text" placeholder="от" id="weight_from" value=""><input type="text" id="weight_to" value=""  placeholder="до" ></div>
+                                 </div>
+                                 <div>
+                                    <div class="width-name type-name">Высота</div>
+                                    <div class="carwidth type-value" ><input type="text" placeholder="от"  id="height_from" value=""><input type="text" id="height_to" value="" placeholder="до"></div>
+                                 </div>
+                                 <div>
+                                    <div class="height-name type-name">Длина</div>
+                                    <div class="carheight type-value"><input type="text" placeholder="от"  id="length_from" value=""><input type="text" id="length_to" value="" placeholder="до"></div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- >Right Panel content here end</ -->      
+      <!-- Views -->
+      <div class="views">
+         <!-- Your main view, should have "view-main" class -->
+         <div class="view view-main">
+            <!-- Top Navbar-->
+            <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+            <div class="pages navbar-through toolbar-through">
+               <!-- Page, "data-page" contains page name -->
+               <div data-page="index" class="page ">
+                  <!-- Scrollable page content -->
+                  <div class="page-content login-screen-content bgBlack">
+                     <div class="content-block_">
+                          <img class="logo" src="images/pages/logo.png" style="width: 45vh;" />
+                        <div id="login-form" style="position: relative; z-index: 20;">
+                            <div class="list-block">
+                                <ul">
+                                    <li class="item-content">
+                                        <div class="item-logo gor">
+                                            <div class="item-title label tex">Номер телефона</div>
+                                            <div>
+                                                <input type="phone" name="phone" id="loginPhone" class="input-text logo2" placeholder="+79999999999" v="89277889840" value_="" value="+79649661191">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-logo gor">
+                                            <div class="item-title labe tex">Пароль</div>
+                                            <div>
+                                                <input type="password" name="password" id="loginPassword" class="input-text" placeholder="*********" v="Nemec123" value_="" value="000000" style="color: #ffffff;">
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="list-block">
+                                <ul>
+                                    <li><button class="button item-link btn-main bt" id="enter_login_form">ВОЙТИ</button></li>
+                                </ul>
+                                <!--div class="list-block-label">
+                                    <div id="newpasswordstep1">Я забыл пароль</div>
+                                </div-->
+                            </div>
+                        </div>
+                             <a href="pages/registration.html" class="link bottomplansh">СОЗДАТЬ АККАУНТ</a>             
+                     </div>
+                     
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+         <!--Все всплывающие окна здесь-->
+        <!--фома логина-- >
+        <div class="login-screen">
+            <div class="view">
+                <div class="page">
+                    <div class="page-content login-screen-content bgBlack">
+                           
+                    </div>
+                </div>
+            </div>
+        </div-->
+
+        <!--Перевозчик или менеджер-->
+        <div class="popup popup-standart popup-selectgroup info">
+            <div class="content-block">
+                <p class="H2">Перевозчик</p>
+                <p>Выберите эту группу, если вы являетесь водителем транспортного средства и непосредственно выполняете маршруты. Вы сможете связываться с дипетчером, отправлять заявки на маршрут, принятые к исполнению. Потребуется  добавить данные о юридическом лице и автомобилях</p>
+                <p class="H2">Менеджер</p>
+                <p>Выберите эту группу, если вы просто хотите получать информацию об имеющихся маршрутах и не планируете пользоваться расширенным функционалом приложения. Не требуется  добавить данные о юр. лице и автомобилях</p>
+                <p><a href="#" class="close-popup">Закрыть</a></p>      
+            </div>
+        </div>
+        
+        <!--Выслать активационный SMS для регистрации-->
+        <div class="popup popup-standart popup-sendregistrationsms phone">
+            <div class="content-block">              
+                <div class="item-content">
+                    <p class="names">Ваш аккаунт не активирован. <br>Отправить код активации на указанный телефон?</p>
+                </div> 
+            </div>
+            <div class="button_container">
+             <button class="button close-popup">ОТМЕНА</button><button id="sendmesms" class="button active">ОТПРАВИТЬ</button>
+            </div>
+        </div>
+        
+        <!--Подверждение по SMS после регистрации-->
+        <div class="popup popup-standart popup-registrationsms phone">
+            <form id="activation-form" class="vajax-submit" method="POST">
+            <div class="content-block">              
+                <div class="item-content">
+                    <p>Для завершения регистрации введите код подтверждения</p>
+                    <div class="item-inner">
+                        <div class="item-title label"><br/>
+                        <div class="item-input">
+                            <input type="text" name="activation_code">
+                        </div>
+                    </div>
+                </div> 
+              </div>
+                 </div>
+                 <button class="button close-popup">ОТМЕНА</button><button type="submit" class="button active">ПРОДОЛЖИТЬ</button>
+            </form>
+      </div>
+        <!--Подверждение по SMS после регистрации-->
+        <div class="popup popup-standart popup-registrationdone phone">
+            <div class="content-block">
+                <p class="topPopup"></p>
+                <p class='center'>Регистрация прошла успепшно</p>
+            </div>
+            <div class="button close-popup">ОТМЕНА</div><div class="button active close-popup">ПРОДОЛЖИТЬ</div>
+        </div>
+        
+         <!--Подверждение по SMS после регистрации-->
+        <!--div class="popup popup-standart popup-registrationerror phone">
+            <div class="content-block">
+                <p class="topPopup"></p>
+                <p class='center'>При регистрации возникла ошибка. <span id="msgreg"></span></p>
+            </div>
+            <div class="button close-popup">ОТМЕНА</div><div class="button active close-popup">ПРОДОЛЖИТЬ</div>
+        </div-->       
+        <!--Восстановление пароля-->
+        <div class="popup popup-standart popup-newpasswordphone phone">
+            <div class="content-block">
+                <p class="topPopup"></p>
+                <p class='center'>Для восстановлелния пароля укажите номер телефона</p>
+                <div class="item-content">
+                    <div class="popup-inner">
+                        <div class="item-title label">Номер телефона:</div>
+                        <div class="item-input">
+                            <input type="tel"  name="phone" placeholder="+7(999)999-99-99" >
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="button close-popup">ОТМЕНА</div><button type="submit" class="button active" id="newpasswordstep2">ДАЛЕЕ</button>
+        </div>
+
+        <!--Подверждение по SMS после восстановления пароля-->
+        <div class="popup popup-standart popup-newpasswordsms">
+            <div class="content-block">
+                <p class="topPopup"></p>
+                <p  class='center'>Введите код подтверждения</p>
+                <div class="item-content">
+                    <div class="popup-inner">
+                        <div class="item-title label">Код подтверждения</div>
+                        <div class="item-input">
+                            <input type="number" name="smscode" placeholder="0000">
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+            <div class="button close-popup">ОТМЕНА</div><div class="button active" id="newpasswordstep3">ПРОДОЛЖИТЬ</div>
+        </div>
+        <!--Установка нового пароля-->
+        <div class="popup popup-standart popup-newpasswordconfirm">
+            <div class="content-block">
+                <p class="topPopup"></p>
+                <p  class='center'>Установить новый пароль</p>
+                <div class="item-content">
+                    <div class="popup-inner">
+                        <div class="item-title label">Новый пароль</div>
+                        <div class="item-input">
+                            <input type="password" name="paswd" placeholder="******">
+                        </div>
+                    </div>
+                </div> 
+                <div class="popup-inner">
+                    <div class="item-title label">Повторите пароль</div>
+                    <div class="item-input">
+                        <input type="password" name="paswdconfirm" placeholder="******">
+                    </div>
+                </div>
+            </div>
+            <div class="button close-popup">ОТМЕНА</div><div class="button active" id="newpasswordstep4">ПРОДОЛЖИТЬ</div>
+
+        </div>
+
+        <!--Контакты диспетчера-->
+        <div class="popup  popup-dispetcher">
+            <div class="content-block">
+                <p class="topPopup">Контакты диспетчера</p>
+                <div class="item-content">
+                    <div class="item-inner">
+                        <a href="tel:88009995566" class="link icon-only open-panel"><span class="ico icon-phone-gray"></span><span id="dispetcherPhone">8 800 999-55-66</span></a>
+                    </div>
+            
+                <div class="item-inner">
+                    <a href="mailto:" class="link icon-only open-panel"><span class="ico icon-mail-gray"></span><span id="dispetcherMail">dispetcher@victorymail.ru</span></a>
+                </div>
+				</div> 
+               <div class="button-content"> <a href="tel:88009995566" class="callcircle"><span class="ico icon-phone-white"></span></a><div class="close-popup"></div></div>
+            </div>
+        </div>
+       <!--Добавление подписки-->
+          <div class="popup  popup-addsubscribe">
+            <div class="content-block">
+                <p class="topPopup">Новая подписка</p>
+           		  <div class="subscribeblock">
+                    <div class="begin">
+                        <span class="icon_map_routes"></span>
+                        <div class="address-name">
+                            <input type="hidden" id="begin_id" value="0" />
+                            <div class="city_begin"><input type="text"   class="city_search"  placeholder="ОТКУДА ВЕЗЕМ" name="begin" id="begin"></div>
+                            <div class="region_begin"></div>
+                        </div>
+                        <div class="address-name">
+                            <input type="hidden" id="end_id" value="0" />
+                            <div class="city_end"><input type="text"  class="city_search"  placeholder="КУДА ВЕЗЕМ"  name="end" id="end"></div>
+                            <div class="region_end"></div>
+                        </div>
+                    </div>
+                    <div class="button-container"><div class="close-popup">ОТМЕНА</div><div class="save_subscribe">СОХРАНИТЬ</div></div>
+				</div> 
+              
+            </div>
+        </div>     
+       
+       
+        <!--Добавление автомобиля-->
+        <div class="popup popup-addcars forcars">
+              <p class="topPopup">Новая машина</p>
+            <div class="content-block">
+                <form id="add-car">
+                    <div class="item-content">
+                        <div class="popup-inner">
+                            <div class="item-title label">Регистрационный номер</div>
+                            <div class="item-input">
+                                <input type="text" name="car_code" value="" placeholder="">
+                            </div>
+                        </div>
+                         <div class="popup-inner">
+                            <div class="item-title label">Код региона</div>
+                            <div class="item-input">
+                                <input type="text" name="region_code" value="" placeholder="">
+                            </div>
+                        </div>                        
+                        <div class="popup-inner">
+                            <div class="item-title label">Номер ПТС</div>
+                            <div class="item-input">
+                                <input type="text" name="pts_number" value="" placeholder="">
+                            </div>
+                        </div>
+                        
+                        <div class="popup-inner">
+                            <div class="item-title label">Грузоподъемность</div>
+                            <div class="item-input">
+                                <input type="text" name="carrying" value="" placeholder="">
+                            </div>
+                        </div>
+                        <div class="popup-inner">
+                            <div class="item-title label">Тип кузова</div>
+                            <div class="item-input">
+                                <select type="text" name="car_type_id" id="bodyType"  class="bodyType_option"  placeholder="">
+								<option>Выберите тип кузова</option>
+								</select>
+                            </div>
+                        </div>                      
+                        <div class="popup-inner">
+                            <div class="item-title label">Объем кузова</div>
+                            <div class="item-input">
+                                <input type="text" name="volume" value="" placeholder="">
+                            </div>
+                        </div>
+                        <div class="popup-3-container">
+                        <div class="popup-inner">
+                            <div class="item-title label">Длина</div>
+                            <div class="item-input">
+                                <input type="text" name="length"  value="" placeholder="">
+                            </div>
+                        </div> 
+                        <div class="popup-inner">
+                            <div class="item-title label">Ширина</div>
+                            <div class="item-input">
+                                <input type="text" name="width"  value="" placeholder="">
+                            </div>
+                        </div> 
+                        <div class="popup-inner">
+                            <div class="item-title label">Высота</div>
+                            <div class="item-input">
+                                <input type="text" name="height"  value=""  placeholder="">
+                            </div>
+                        </div>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+            <div class="button_container">
+             <div class="close-popup">ОТМЕНА</div>           
+            <div class="savecars" id="saveNewCar">СОХРАНИТЬ</div>
+            </div>
+        </div>
+   <!--Действия с маршрутом-->
+ <div class="popup popup-action tablet-fullscreen">
+  <div class="content-block">                
+   <div class="containerforbutton">
+    <div class="row-action" id="subscribe-action"><span>Добавить в подписки</span><div class="subscribe-action"><i class="ico ico-star-white"></i></div></div>
+    <div class="row-action" id="close-action"><span></span><div class="close-action"><i class="ico ico-close-white"></i></div></div>
+    <div class="row-action" id="get-route-action"><span>Принять маршрут</span><div class="get-route-action"><i class="ico ico-check-white"></i></div></div>
+    <div class="row-action" id="rate-action"><span>Предложить ставку</span><div class="rate-action"><i class="ico ico-bet-white"></i></div></div>
+    <div class="row-action" id="call-action""><span>Заказать звонок</span><div class="call-action"><i class="ico ico-phone-white"></i></div></div>
+    <div class="row-action" id="question-action"><span>Задать вопрос</span><div class="question-action"><i class="ico ico-question-white"></i></div></div>
+   </div>    
+  </div>
+ </div>      
+        
+        
+        
+        <!--Редактирование автомобиля-->
+        <div class="popup popup-editcars forcars">
+              <p class="topPopup">Редактироване машины</p>
+            <div class="content-block">
+                <form id="edit-car">
+                    <div class="item-content">
+                        <div class="popup-inner">
+                            <div class="item-title label">Регистрационный номер</div>
+                            <div class="item-input">
+                                <input type="text" name="car_code" id="car_code" value="" v="А058АХ" placeholder="">
+                            </div>
+                        </div>
+                         <div class="popup-inner">
+                            <div class="item-title label">Код региона</div>
+                            <div class="item-input">
+                                <input type="text" name="region_code" id="region_code" value="" v="61" placeholder="">
+                            </div>
+                        </div>                        
+                        <div class="popup-inner">
+                            <div class="item-title label">Номер ПТС</div>
+                            <div class="item-input">
+                                <input type="text" name="pts_number" id="pts_number" value="" v="61ТМ333555" placeholder="">
+                            </div>
+                        </div>
+                        
+                        <div class="popup-inner">
+                            <div class="item-title label">Грузоподъемность</div>
+                            <div class="item-input">
+                                <input type="text" name="carrying" id="carrying" value="" v="50" placeholder="">
+                            </div>
+                        </div>
+                        <div class="popup-inner">
+                            <div class="item-title label">Тип кузова</div>
+                            <div class="item-input">
+                                <select type="text" name="car_type_id" id="car_type_id" class="bodyType_option"  placeholder="">
+								<option>Выберите тип кузова</option>
+								</select>
+                            </div>
+                        </div>                      
+                        <div class="popup-inner">
+                            <div class="item-title label">Объем кузова</div>
+                            <div class="item-input">
+                                <input type="text" name="volume" id="volume" value="" v="35" placeholder="">
+                            </div>
+                        </div>
+                        <div class="popup-3-container">
+                        <div class="popup-inner">
+                            <div class="item-title label">Длина</div>
+                            <div class="item-input">
+                                <input type="text" name="length" id="length" value="" v="6" placeholder="">
+                            </div>
+                        </div> 
+                        <div class="popup-inner">
+                            <div class="item-title label">Ширина</div>
+                            <div class="item-input">
+                                <input type="text" name="width" id="width" value="" v="2" placeholder="">
+                            </div>
+                        </div> 
+                        <div class="popup-inner">
+                            <div class="item-title label">Высота</div>
+                            <div class="item-input">
+                                <input type="text" name="height" id="height" value="" v="2"  placeholder="">
+                            </div>
+                        </div>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+            <div class="button_container">
+             <div class="close-popup">ОТМЕНА</div>           
+            <div class="savecars" id="saveCar">СОХРАНИТЬ</div>
+            </div>
+        </div>
+        
+        <!--ставки на маршрут-->
+        <div class="popup popup-rateorder popup-standart">
+            <div class="content-block">
+            <p class="topPopup rate"></p>
+            <p class="name">Предложить свою ставку для маршрута?</p>
+            <div class="rate-order-names"><div class="ratetxt"><span class="ico icon-rub"></span>ВАША СТАВКА</div>
+            <div class="formrate"><input type="text" id="ratecount" name="rate" value="">
+             <div class="selector">
+            <div class="label" id="perkm">RUB/КМ</div>
+            <div class="item-input">
+                <label class="label-switch"><input type="checkbox"   id="per_km"   name="per_km"  checked="checked" value="1"><div class="checkbox"></div></label>     
+            </div>
+         </div></div>
+            
+            </div>
+            <div class="button_container">
+             <div class="close-popup">ОТМЕНА</div>           
+            <div class="saverate" id="saverate">СОХРАНИТЬ</div>
+            </div>
+
+            </div>
+        </div>
+         <!--Задать вопрос про маршрут-->
+        <div class="popup popup-addticket popup-standart">
+            <div class="content-block">
+            <p class="topPopup question"></p>
+            <p class="theme">Укажите тему вопроса:</p>            
+            <div class="formrate">
+                <textarea id="questionforroute"></textarea>
+            </div>
+            </div>
+            <div class="button_container">
+             <div class="close-popup">ОТМЕНА</div>           
+            <div class="saverate" id="savequestion">СОХРАНИТЬ</div>
+            </div>
+
+         </div>
+               
+          <!--информационное сообщение-->
+        <div class="popup popup-info">
+            <div class="content-block">
+                <p class="topPopup"></p>
+                <p id="msg-info-popup"></p>
+                <div class="button close-popup">OK</div>
+            </div>
+        </div>
+        
+        <!--Логин/пароль не верны-->
+        <div class="popup popup-standart popup-wrongpass info">
+            <div class="content-block">
+                <p class="topPopup"></p>
+                <p id="entererror">Логин или пароль не верны</p>
+                <div class="button close-popup">OK</div>
+
+            </div>
+        </div>
+    
+         
+        <!--подсказка к городам-->      
+        <div id="cities"></div>
+          <!--карта для определения расстояний-->
+           <div id="mapdummy"></div>
+              <!--Все всплывающие окна здесь закончились-->     
+     
+
+        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>        
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/socket.io.js"></script>
+        <script type="text/javascript" src="lib/framework7/js/framework7.js"></script>
+        <script type="text/javascript" src="js/application_function.js"></script>
+        <script type="text/javascript" src="js/my-app.js"></script>
+
+
+    </body>
+
+</html>

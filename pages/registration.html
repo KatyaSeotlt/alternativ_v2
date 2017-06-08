@@ -1,0 +1,334 @@
+<div class="pages ">
+    <div data-page="registration" class="page">
+        <div class="page-content bgBlack" id="pageContentRegistration">
+            <div class="page-top">
+                <div class="left">
+                    <a href="#" class="back link">
+                        <i class=" icon-back f7-icons">arrow_left</i>
+
+                    </a>
+                </div>   
+                <div class="left">Регистрация</div>
+                <div class="logo-ico"></div>
+            </div>
+
+            <div class="content-block reg-content-block ">
+                <div class="icon-block"><span class='icon-man'></span></div>
+                <div class="list-block registration-form">
+                    <form id="reg-form" class="list-block ajax-submit" method="POST" action="">
+                        <ul>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-media"><span class="icon icon-phone"></span></div>
+                                    <div class="item-inner Hreg">
+                                        <div>ОСНОВНЫЕ ДАННЫЕ</div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Номер телефона</div>
+                                        <div class="item-input">
+                                            <input type="tel" name="phone" placeholder="+7(999)999-99-99">
+                                        </div>
+                                        <div class="item-error" id="phone-error"></div>                                      
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Пароль</div>
+                                        <div class="item-input">
+                                            <input type="password" name="password" placeholder="******">
+                                        </div>
+                                        <div class="item-error" id="password-error"></div> 
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Пoвторите пароль</div>
+                                        <div class="item-input">
+                                            <input type="password" name="password_confirmation" placeholder="******">
+                                        </div>
+                                        <div class="item-error" id="password_confirmation-error"></div> 
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a href="#" class="item-link smart-select" data-open-in="popup"  data-back-on-select="true" data-popup-close-text=" ">
+                                    <!-- select -->
+                                    <select name="user_group" id="group">
+                                        <option value="carrier" selected>Перевозчик</option>
+                                        <option value="partner">Менеджер</option>
+                                    </select>
+                                    <div class="item-content">
+                                        <div class="item-media"></div>
+                                        <div class="item-inner">
+                                            <!-- Select label -->
+                                            <div class="item-title p1">Группа пользователей</div>							
+                                            <div class="item-after r1">Менеджер</div>
+                                        </div>											 
+                                    </div>
+                                </a>
+
+
+                            </li>
+                            <li>
+                                <div class="item-content">	
+                                    <div class="item-media"></div>
+                                    <div  class="open-selectgroup">Какую группу мне выбрать?</div>
+
+                                </div>
+                            </li>
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"><span class="icon icon-city"></span></div>
+                                    <div class="item-inner Hreg">
+                                        <div >ДАННЫЕ ЮР.ЛИЦА</div>
+
+                                    </div>
+                                </div>
+                            </li>
+
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Название ИП или юр. лица</div>
+                                        <div class="item-input">
+                                            <input type="text" name="org_name">
+                                        </div>
+                                        <div class="item-error" id="org_name-error"></div> 
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">ФИО руководителя</div>
+                                        <div class="item-input">
+                                            <input type="text" name="name">
+                                        </div>
+                                        <div class="item-error" id="org_head_name-error"></div> 
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">ИНН</div>
+                                        <div class="item-input">
+                                            <input type="number" name="org_inn">
+                                        </div>
+                                        <div class="item-error" id="org_inn-error"></div> 
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">КПП</div>
+                                        <div class="item-input">
+                                            <input type="number" name="org_kpp">
+                                        </div>
+                                        <div class="item-error" id="org_kpp-error"></div> 
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">ОГРН</div>
+                                        <div class="item-input">
+                                            <input type="number" name="org_ogrn">
+                                        </div>
+                                        <div class="item-error" id="org_ogrn-error"></div> 
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Почтовый адрес</div>
+                                        <div class="item-input">
+                                            <textarea class="resizable" name="org_post_address"></textarea>
+                                        </div>
+                                        <div class="item-error" id="org_post_address-error"></div> 
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Номер телефона</div>
+                                        <div class="item-input">
+                                            <input type="tel" name="org_phone">
+                                        </div>
+                                        <div class="item-error" id="org_phone-error"></div> 
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Электронная почта</div>
+                                        <div class="item-input">
+                                            <input type="email" name="org_email">
+                                        </div>
+                                        <div class="item-error" id="org_email-error"></div> 
+                                    </div>
+                                </div>
+                            </li>
+
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"><span class="icon icon-man"></span></div>
+                                    <div class="item-inner  Hreg">
+                                        <div>КОНТАКТНОЕ ЛИЦО</div>
+
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Имя контактного лица</div>
+                                        <div class="item-input">
+                                            <input type="text" name="cont_name">
+                                        </div>
+                                        <div class="item-error" id="cont_name-error"></div> 
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Телефон контактного лица</div>
+                                        <div class="item-input">
+                                            <input type="tel" name="cont_phone">
+                                        </div>
+                                        <div class="item-error" id="cont_phone-error"></div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Почта контактного лица</div>
+                                        <div class="item-input">
+                                            <input type="email" name="cont_email">
+                                        </div>
+                                        <div class="item-error" id="cont_email-error"></div>
+                                    </div>
+                                </div>
+                            </li>
+
+
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"><span class="icon icon-bank"></span></div>
+                                    <div class="item-inner Hreg">
+                                        <div>БАНКОВСКИЕ РЕКВИЗИТЫ</div>
+
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Название банка</div>
+                                        <div class="item-input">
+                                            <input type="text" name="bank_name">
+                                        </div>
+                                        <div class="item-error" id="bank_name-error"></div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">БИК банка</div>
+                                        <div class="item-input">
+                                            <input type="number" name="bank_bik">
+                                        </div>
+                                        <div class="item-error" id="bank_bik-error"></div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Кор. счет банка</div>
+                                        <div class="item-input">
+                                            <input type="number" name="bank_korr">
+                                        </div>
+                                        <div class="item-error" id="bank_korr-error"></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Расчетный счет</div>
+                                        <div class="item-input">
+                                            <input type="number" name="bank_account">
+                                        </div>
+                                        <div class="item-error" id="bank_account-error"></div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li> </li>
+                        </ul>
+            <div class=" button-container ">
+                    <button type="submit" class="button save" id="save"><i class="f7-icons">check</i></button>
+                    <a href="#" class="close back link"><i class="f7-icons">close</i></a>
+                </div>
+          </form>
+                </div>
+            </div>
+            <div class="footeerreg-block"></div>
+        </div>
+
+    </div>
+
+</div>
+
