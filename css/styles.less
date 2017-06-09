@@ -643,7 +643,6 @@ background-size:  100% 100%;
 
 
 
-
 .icon-phone-gray{
    width: 13px * @dpscale;
    background: url('../images/pages/ic_phone_gray.svg') center top no-repeat ;
@@ -2175,6 +2174,10 @@ p.ves span.qaz11{color:#455a64; font-size:13px * @dpscale; font-weight: 400; dis
 background: url('../images/pages/ic_close_white.svg') center center no-repeat;
 background-size: contain;
 }
+.ico-close-gray{
+background: url('../images/pages/ic_close_gray.svg') center center no-repeat;
+background-size: contain;
+}
 .ico-check-white{
 background: url('../images/pages/ic_check_white.svg') center center no-repeat;
 background-size: contain;
@@ -2191,6 +2194,11 @@ background-size: contain;
 background: url('../images/pages/ic_question_white.svg') center center no-repeat;
 background-size: contain;
 }
+.ic_speech_white{
+ background: url('../images/pages/ic_speech_white.svg') center center no-repeat;   
+ background-size: contain;
+}
+
 .popup-rateorder {
 .topPopup.rate{
 	background: url('../images/pages/ic_bet_white.svg') no-repeat center center;
@@ -2373,4 +2381,55 @@ div.region.region_search_begin{width: 100%; display: block;}
     }
 .tex{
    color: lightgrey;
+}
+
+.picker-modal.messmod{
+	width: 90%;
+	margin-left: 5%;
+    height: auto;
+	left: auto;
+	bottom: 48px;
+	border-radius: 3px;
+	background: #fff;
+	padding: 16px * @dpscale;
+    box-sizing: border-box;
+}
+.picker-modal.messmod.type1  .icoleft div {
+	background-color: #ffab00;
+}
+.picker-modal.messmod.type2  .icoleft div {
+	background-color: #ef5350;
+}
+.picker-modal.messmod.type3  .icoleft div {
+	background-color: #00897b;
+}
+.picker-modal.messmod.type4  .icoleft div {
+	background-color: #1e88e5;
+}
+.picker-modal.messmod {
+ .picker-modal-inner {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	
+ }
+ .icoleft, .close-right {
+	flex-grow: 1;
+ }
+ 
+ .icoleft{ text-align: center;}
+ .icoleft div {
+	width: 48px * @dpscale;
+	height: 48px * @dpscale;
+	border-radius:  48px * @dpscale;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 15px * @dpscale;
+	box-sizing: border-box;
+ }
+
+ p.text {
+	flex-grow: 4;
+	padding: 0px 8px * @dpscale;
+ }
 }

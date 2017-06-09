@@ -1,11 +1,11 @@
-var serverpath="http://victrack.ru/api/";
+var serverpath="http://78.108.87.128/api/";//"http://victrack.ru/api/";
 var myMap=false;
 var lat='';
 var lng='';
 var vicFunc = new victoryExchangeFunc();
 var userProfileData=false;
 var opendopinfo=true;
-var relise=true;
+var relise=false;
 var cityIsSearched=0;
 var loading = 0;
 var last_page=0;
@@ -17,6 +17,7 @@ var subscriptionsfrom='';
 var subscriptionsto='';
 var map_Routes_Detail='';
 var loginclickisset=0;
+var selfPosition;
 var routeApp=false;
 var search=1;
 var lastrequest='';
@@ -24,25 +25,9 @@ var lastrequestdata='';
 var lastrequestvariable='';
 var cargo_types=lang.cargo_types;
 var loading_types=lang.loading_types;
-/*
-window.Echo = new Echo({
-    broadcaster: 'socket.io',
-    host: 'http://victrack.ru:6001',
-    auth:
-    {
-        headers:
-        {
-            'Authorization': window.localStorage.getItem("access_token")
-        }
-    }
-});
-
-window.Echo.private('some-private-channel')
-    .listen('SomeEvent', (e) => {
-        console.log(e);
-    });
-
-*/
+function map_error(e){
+	
+}
 function victoryExchangeFunc() {
 	var _this=this;	
 	var requestnow = 0; //have request now
@@ -71,12 +56,6 @@ this.route = function(type, data, responseData){
 		case 'map_detail':
 			if(type=='getpath'){return{path:'map/points/info', method:'POST'};}else{_this.mapRoutesDetail(responseData);}
 		break;
-		case 'login_first':
-			if(type=='getpath'){return{path:'login/', method:'POST'}; }else{_this.openfirst(responseData);}
-		break;
-		case 'login':
-			if(type=='getpath'){return{path:'login/',method:'POST'};}else{}
-		break;	
 		case 'firstperson':
 			if(type=='getpath'){return{path:'settings/profile/edit',method:'GET'};}else{userProfileData=responseData; }
 		break;
@@ -174,59 +153,53 @@ this.route = function(type, data, responseData){
 	} 
 };
 
-    /*
-	this.login=function() {
+ 
+this.login=function(login, password) {
 	
-		var data={phone: window.localStorage.getItem("login"), password:  window.localStorage.getItem("password")};
+		var data={phone:login, password: password};
 		 
 		var header = {'Accept':'application/json', 'X-Requested-With':'XMLHttpRequest'}; 
 		 
 		var xhr = $$.ajax({
-                method: t.method,
-                url: serverpath+t.path,
+                method: 'POST',
+                url: serverpath+'login/',
                 crossDomain: true,
-				dataType: 'json',
+					 dataType: 'json',
                 headers: header,
                 contentType: 'application/x-www-form-urlencoded', // 'application/json',
                 data: data,
                 error: function (xhr) {
 					
-					showlog(xhr);
+					 _this.login_first_error(xhr);
 					
-				},
+					},
 				success: function (data) {
-				
-					showlog(data);
-				
+				 _this.setAccessToken(xhr, data);
+				 _this.openfirst(data);
 				},
 		});
 	
-	},
-	*/
+	};
+
 	
 	this.getdataserver=function(parent, data, variable) {
       
         var t = _this.route('getpath', parent, variable);
-		  if(requestnow==1 && (parent!=='login' || parent!=='login_first')) {
-
+		  if(requestnow==1) {
             _this.tryes=_this.tryes+1;
-
             if(_this.tryes>3) {
                 requestnow=0;
             }
-            setTimeout(function() { _this.getdataserver(parent, data, variable); }, 2000);
-        
-		  }else {
-           
+            setTimeout(function() { _this.getdataserver(parent, data, variable); }, 2000);        
+		  }else {           
             requestnow=1;
-           
+				
             t = _this.route('getpath', parent, variable);
            
             if (_this.isUndefined(data)) {
                 data = '';
             }
-			  var header="";
-           if(parent!=='login' && parent!=='login_first') {
+			  var header="";           
                
                lastrequest=parent;
 
@@ -236,12 +209,7 @@ this.route = function(type, data, responseData){
                
                header = {Authorization:window.localStorage.getItem("access_token"), 'Accept':'application/json', 'X-Requested-With':'XMLHttpRequest'};
 			   
-            }
-            else {
-               header = {'Accept':'application/json', 'X-Requested-With':'XMLHttpRequest'};
-            }
-
-            myApp.showIndicator();
+				myApp.showIndicator();
 
             var xhr = $$.ajax({
                 method: t.method,
@@ -262,27 +230,16 @@ this.route = function(type, data, responseData){
 					}
 					vicFunc.setAccessToken(xhr, msg);
 					if(!(xhr.status===500 || xhr.status===401 || xhr.status===400 || xhr.status===0) ) {
-					         if((parent=='login' || parent=='login_first')) {
-							       if(lastrequest!=='') {
-						           _this.getdataserver(lastrequest,lastrequestdata,lastrequestvariable);
-                             lastrequest='';
-                            }
-                        }								
                     vicFunc.setAccessToken(xhr, msg);
-               }else{		
-						if((parent=='login'|| parent=='login_first')&& xhr.status==401 ) {
-                    _this.login_first_error(xhr);
-                  }else{
+               }else{
                      window.localStorage.clear();
                      myApp.closePanel();
-						   mainView.router.loadPage("index.html");
                      _this.openInfoPopup(lang.serveer_disconnect);
-						   mainView.router.loadPage("index.html");
-					  }
+						   mainView.router.loadPage("index.html");					  
 					}
 
 					var responseData ='';
-                if(xhr.status==200) {
+               /* if(xhr.status==200) {
 
                     
                         if(xhr.responseText!=='') {
@@ -292,7 +249,8 @@ this.route = function(type, data, responseData){
                          }
 
                         _this.route('setdata',parent,responseData);
-                    }else  if(xhr.status==422) {
+                    }else */
+					if(xhr.status==422) {
 
                         msg=JSON.parse(decodeURI(xhr.responseText));
 
@@ -325,7 +283,7 @@ this.route = function(type, data, responseData){
                 showlog('success - '+t.path);	
 				    myApp.hideIndicator();
 					 requestnow=0;
-                vicFunc.setAccessToken(xhr, data);
+                vicFunc.setAccessToken(xhr, data);					 
                 vicFunc.route('setdata',parent,data);
                 }
             });
@@ -434,32 +392,14 @@ this.ticketThemeCreate = function (responseData){
 this.createMap = function (responseData) {
    // var rdata=responseData;
     if(responseData!==undefined){
-  ymaps.ready(function () {    
-     ymaps.geolocation.get().then(function (res) {
-
-   lat=res.geoObjects.position[0];
-   lng=res.geoObjects.position[1];
-   if(myMap===false || $$('#map').html()===''){
-        myMap = new ymaps.Map("map", {
-            center: [lat, lng],
-            zoom: 9,
-            controls: ['smallMapDefaultSet']
-        });
-   }else{
-
-	myMap.geoObjects.removeAll();
-     	myMap.geoObjects.remove(routeApp);
+  ymaps.ready(function () {
+	var ismapcreate=_this.createYaMap();
+	vicFunc.getSelfPosition();
+   if(ismapcreate===false){
+	  myMap.geoObjects.removeAll();
+    	myMap.geoObjects.remove(routeApp);
 	}
-   
-	//	myMap.setCenter([lat, lng], 9);
-	  selfPosition = new ymaps.GeoObject({
-        geometry: {
-          type: "Point",
-		  preset:'islands#blueCircleDotIcon',
-          coordinates: [lat, lng] 
-       }
-       });
-	myMap.geoObjects.add(selfPosition); 
+	if(ismapcreate!==null){
       var myGeoObject = new ymaps.GeoObject({options:{fillColor:'00000000'}});
       myMap.geoObjects.add(myGeoObject);
       var myObjectManager = new ymaps.ObjectManager({ clusterize: true });
@@ -469,7 +409,7 @@ myObjectManager.objects.options.set({
     hasBalloon: false,
     zIndex: 500
 });
-
+		
     if(subscriptionsfrom!==''){
 	     routeApp=new ymaps.route([subscriptionsfrom, subscriptionsto]);           
            routeApp.then(
@@ -520,11 +460,9 @@ myObjectManager.objects.options.set({
 });  
         myObjectManager.add(myObjects);        
         myMap.geoObjects.add(myObjectManager);  
-		}, function (e) {
-			showlog(e);
-		});
-    });
-    }
+	}
+	});
+	 }
 if(userProfileData===false){ 
      vicFunc.getdataserver('firstperson','');
    }
@@ -1063,11 +1001,43 @@ this.openfirst = function(responseData){
     }
 });
 
-window.Echo.private('some-private-channel')
-    .listen('SomeEvent', (e) => {
-        console.log(e);
-    });     
+
+
+	window.Echo.private('App.User.'+userProfileData.id)
+    .listen('Operator.AcceptRateOffer', function(e) {
+		vicFunc.notify(e.text, 1);
+		showlog(e);
+    })
+	.listen('Operator.RejectRateOffer', function(e) {
+		vicFunc.notify(e.text, 2);
+		showlog(e);
+    })
+	.listen('Operator.AcceptRouteRequest', function(e) {
+		vicFunc.notify(e.text, 1);
+		showlog(e);
+    })
+	.listen('Operator.RejectRouteRequest', function(e) {
+		vicFunc.notify(e.text,2);
+		showlog(e);
+    })
+	.listen('Operator.PaymentWaitingState', function(e) {
+		vicFunc.notify(e.text,3);
+		showlog(e);
+    })
+	.listen('Operator.UserConfirmed', function(e) {
+		vicFunc.notify(e.text,1);
+		showlog(e);
+    })
+	.listen('Operator.Message', function(e) {
+		vicFunc.notify(e.text,4);
+		showlog(e);
+    })
+	.listen('Operator.TicketClosed', function(e) {
+		vicFunc.notify(e.text);
+		showlog(e);
+    });
 };
+
 this.activationuserlogin=function(responseData){
 	if(responseData.message=="auth.timeout"){
 		var timeout=responseData.timeout*1100;	
@@ -1078,7 +1048,60 @@ this.activationuserlogin=function(responseData){
 	  }
 	};	
 
+this.getSelfPosition=function(){
+	if(myMap!==false){
+	/*ymaps.geolocation.get().then(function (res) {
+   lat=res.geoObjects.position[0];
+   lng=res.geoObjects.position[1];
+	myMap.setCenter(lat, lng, 10);	
+	myMap.geoObjects.remove(selfPosition);
+   selfPosition = new ymaps.GeoObject({
+        geometry: {
+          type: "Point",
+		  preset:'islands#blueCircleDotIcon',
+          coordinates: [lat, lng] 
+       }
+       });
+		myMap.geoObjects.add(selfPosition); 
+		});*/
+	}
+};
+this.createYaMap=function(){
 
+   if(myMap===false || $$('#map').html()===''){
+        myMap = new ymaps.Map("map", {
+            center: [55.7522200, 37.6155600],
+            zoom: 9,
+            controls: ['smallMapDefaultSet']
+        });
+
+		return true;  
+     }else{
+		return false;	
+	  }
+
+return null;	
+};
+this.notify=function(text, type){
+  if ($$('.picker-modal.modal-in').length > 0) {
+    myApp.closeModal('.picker-modal.modal-in');
+  }
+  var class_modal="";
+  var ico_name="map-ico-routes";
+  if(type==1){class_modal="type1";}
+  if(type==2){class_modal="type2";}
+  if(type==3){class_modal="type3";}
+  if(type==4){class_modal="type4"; ico_name='ic_speech_white'}
+  myApp.pickerModal(
+    '<div class="picker-modal messmod '+class_modal+'">' +
+      '<div class="picker-modal-inner">' +
+		    '<div class="icoleft"><div><i class="ico '+ico_name+'"></i></div></div>' + 
+          '<p class="text">'+text+'</p>' +
+			  '<div class="close-right"><a href="#" class="close-picker"><i class="ico ico-close-gray"></i></a></div>' + 
+      '</div>' +
+    '</div>'
+  );
+};
 this.isUndefined=function(v){
 		if(v===undefined){
 			return true;
@@ -1106,7 +1129,7 @@ var mainView = myApp.addView('.view-main', {
    /* dynamicNavbar: true*/
 });
 function login_click(){
- vicFunc.getdataserver('login_first', {phone:$$('#loginPhone').val().replace('+7', 8),password:$$('#loginPassword').val()});
+ vicFunc.login($$('#loginPhone').val().replace('+7', 8),$$('#loginPassword').val()); 
 }
 // Logins
 $$(document).on('deviceready', function () {    
@@ -1118,37 +1141,14 @@ $$(document).on('deviceready', function () {
     dataforopen.user.role_id= window.localStorage.getItem("role_id");   
     vicFunc.openfirst(dataforopen);
     }
-   /* $$('#enter_login_form').on('click',  function(){
-    showlog($$('#loginPhone').val());
-    loginclickisset=1;
-    vicFunc.getdataserver('login_first', {phone:$$('#loginPhone').val().replace('+7', 8),password:$$('#loginPassword').val()});
-    });      */
 });
-/*
-myApp.onPageInit('index', function () {
-    if(loginclickisset!=1){
-   $$('#enter_login_form').on('click',  function(){
-    showlog($$('#loginPhone').val());
-    vicFunc.getdataserver('login_first', {phone:$$('#loginPhone').val().replace('+7', 8),password:$$('#loginPassword').val()});    
-    });
-    }
-   });*/
 
 myApp.onPageInit('map', function () {
-     ymaps.ready(function () {    
-     ymaps.geolocation.get().then(function (res) {
-
-   lat=res.geoObjects.position[0];
-   lng=res.geoObjects.position[1];
-   if(myMap===false || $$('#map').html()===''){
-        myMap = new ymaps.Map("map", {
-            center: [lat, lng],
-            zoom: 9,
-            controls: ['smallMapDefaultSet']
-        });
-     }
-   });
+		ymaps.ready(function () {
+				vicFunc.createYaMap();
  });
+
+
     vicFunc.getdataserver('map_points','');
     myApp.addView('.view-right', {
         name:'right',
