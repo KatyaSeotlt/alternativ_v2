@@ -930,7 +930,8 @@ this.openfirst = function(responseData){
 	$$('.personal_type').text(responseData.user.role_label);
      window.localStorage.setItem("name", responseData.user.name);
      window.localStorage.setItem("role_label", responseData.user.role_label);
-       window.localStorage.setItem("role_id", responseData.user.role_id); 
+      window.localStorage.setItem("role_id", responseData.user.role_id);
+		 window.localStorage.setItem("user_id", responseData.user.id); 
 	mainView.router.loadPage('pages/map.html');  
 	$$('#exit_icon').on('click', function () {		
       window.localStorage.clear();
@@ -1000,10 +1001,10 @@ this.openfirst = function(responseData){
         }
     }
 });
+	console.log(window.localStorage.getItem("user_id"));
+if(window.localStorage.getItem("user_id")!==null && ! vicFunc.isUndefined(window.localStorage.getItem("user_id"))){
 
-
-
-	window.Echo.private('App.User.'+userProfileData.id)
+	window.Echo.private('App.User.'+window.localStorage.getItem("user_id"))
     .listen('Operator.AcceptRateOffer', function(e) {
 		vicFunc.notify(e.text, 1);
 		showlog(e);
@@ -1036,8 +1037,8 @@ this.openfirst = function(responseData){
 		vicFunc.notify(e.text);
 		showlog(e);
     });
+}
 };
-
 this.activationuserlogin=function(responseData){
 	if(responseData.message=="auth.timeout"){
 		var timeout=responseData.timeout*1100;	
@@ -1138,7 +1139,8 @@ $$(document).on('deviceready', function () {
     dataforopen.user={name:'',role_label:''};
     dataforopen.user.name= window.localStorage.getItem("name");
     dataforopen.user.role_label= window.localStorage.getItem("role_label");
-    dataforopen.user.role_id= window.localStorage.getItem("role_id");   
+    dataforopen.user.role_id= window.localStorage.getItem("role_id");
+	 dataforopen.user.id=window.localStorage.getItem("user_id"); 
     vicFunc.openfirst(dataforopen);
     }
 });
