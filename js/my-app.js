@@ -32,6 +32,7 @@ function victoryExchangeFunc() {
 	var _this=this;	
 	var requestnow = 0; //have request now
 	var activeCitySearch='';//who is search city
+	var subscribeCganged=false;
 //check user autorize
    this.isLogin = function () {
      	return !(window.localStorage.getItem("access_token")===undefined || window.localStorage.getItem("access_token")==="undefined" || window.localStorage.getItem("access_token")===null);
@@ -57,13 +58,13 @@ this.route = function(type, data, responseData){
 			if(type=='getpath'){return{path:'map/points/info', method:'POST'};}else{_this.mapRoutesDetail(responseData);}
 		break;
 		case 'firstperson':
-			if(type=='getpath'){return{path:'settings/profile/edit',method:'GET'};}else{userProfileData=responseData; }
+			if(type=='getpath'){return{path:'settings/profile/edit',method:'GET'};}else{userProfileData=responseData;_this.subscribeCganged=false; }
 		break;
 		case 'subscriptions':
-			if(type=='getpath'){return{path:'settings/profile/edit',method:'GET'};}else{userProfileData=responseData;_this.showSubscribe();}
+			if(type=='getpath'){return{path:'settings/profile/edit',method:'GET'};}else{userProfileData=responseData;_this.subscribeCganged=false;_this.showSubscribe();}
 		break;
 		case 'getmycars':
-			if(type=='getpath'){return{path:'settings/profile/edit',method:'GET'};}else{userProfileData=responseData;_this.carsshow();}
+			if(type=='getpath'){return{path:'settings/profile/edit',method:'GET'};}else{userProfileData=responseData;_this.subscribeCganged=false;_this.carsshow();}
 		break;
 		case 'activationuserlogin':
 			if(type=='getpath'){return{path:'resend/',method:'POST'};}else{_this.activationuserlogin(responseData);}
@@ -657,6 +658,7 @@ this.showSubscribe = function(){
          mainView.router.loadPage('pages/map.html');
         });
      $$('.delete_subscribe').on('click', function () {
+			_this.subscribeCganged=true;
           var delete_id=$$(this).attr('deleteid');
           var i=$$(this).attr('i');
           vicFunc.getdataserver('delete_subscriptions', {}, delete_id);
@@ -683,12 +685,14 @@ this.showSubscribe = function(){
     });
    };
 this.saveSubscribe=function(){
+	_this.subscribeCganged=true;
 	 var data={city_from_id: $$('#begin_id').val(), city_to_id: $$('#end_id').val()};
          vicFunc.getdataserver('create_subscriptions', data);
           myApp.closeModal('.popup-addsubscribe');
 	};		 
  /*add subscibe after save*/
  this.addSubscriptions= function(responseData){
+	_this.subscribeCganged=true;
 	var html= $$('#subscribeblocks').html();
 	  html=html+'<div class="subscribeblock" id="subsc'+responseData.id+'">'+
 				'<div class="begin">'+
@@ -1122,7 +1126,8 @@ this.closeActionClick=function(){
 };
 this.subscribeActionClick=function(){
    if(openRoute!==0){
-        vicFunc.getdataserver('addtosubscriptions','', openRoute);
+        _this.getdataserver('addtosubscriptions','', openRoute);
+		  _this.subscribeCganged=true;
     }
 };
 this.getRouteActionClick=function(){
@@ -1398,7 +1403,7 @@ myApp.onPageInit('personedit', function () {
 
 myApp.onPageInit('subscribe', function () {
  showlog(userProfileData.subscriptions);
- if(vicFunc.isUndefined(userProfileData.subscriptions)){
+ if(vicFunc.isUndefined(userProfileData.subscriptions) || vicFunc.subscribeCganged){
     vicFunc.getdataserver('subscriptions','');
  }else{
     vicFunc.showSubscribe();    
