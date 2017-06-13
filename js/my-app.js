@@ -138,7 +138,7 @@ this.route = function(type, data, responseData){
 			if(type=='getpath' && !_this.isUndefined(responseData)){ return {path:'settings/cars/'+responseData+'/edit', method:'GET'}; }else{ _this.changeCar(responseData);} 
 		break;
 		case 'addtosubscriptions':
-			if(type=='getpath' && !_this.isUndefined(responseData)){ return {path: responseData+'/addtosubscriptions', method:'POST'};}else{_this.openInfoPopup(lang.route_set_in_subscribe);}
+			if(type=='getpath' && !_this.isUndefined(responseData)){ return {path: responseData+'/addtosubscriptions', method:'POST',accept:'text/html'};}else{_this.openInfoPopup(lang.route_set_in_subscribe);}
 		break;
 		case 'rateoffer':
 			if(type=='getpath' && !_this.isUndefined(responseData)){ return {path: responseData+'/rateoffer', method:'POST'}; }else{_this.openInfoPopup(lang.rate_seng_dispether);}
@@ -185,6 +185,10 @@ this.login=function(login, password) {
 	this.getdataserver=function(parent, data, variable) {
       
         var t = _this.route('getpath', parent, variable);
+		  var Accept='application/json';
+		  if(!_this.isUndefined(t.accept)){
+			Accept=t.accept;
+		  }
 		  if(requestnow==1) {
             _this.tryes=_this.tryes+1;
             if(_this.tryes>3) {
@@ -207,7 +211,7 @@ this.login=function(login, password) {
 
                lastrequestvariable=variable;
                
-               header = {Authorization:window.localStorage.getItem("access_token"), 'Accept':'application/json', 'X-Requested-With':'XMLHttpRequest'};
+               header = {Authorization:window.localStorage.getItem("access_token"), 'Accept':Accept, 'X-Requested-With':'XMLHttpRequest'};
 			   
 				myApp.showIndicator();
 
@@ -224,9 +228,12 @@ this.login=function(login, password) {
                showlog(xhr);
 					myApp.hideIndicator();
 					requestnow=0;
-					var msg='';
-					if(xhr.responseText!==''){
+					var msg;
+					
+					try{	
 					msg=JSON.parse(decodeURI(xhr.responseText));
+					}catch(e){
+					msg='';	
 					}
 					vicFunc.setAccessToken(xhr, msg);
 					if(!(xhr.status===500 || xhr.status===401 || xhr.status===400 || xhr.status===0) ) {
@@ -697,13 +704,12 @@ this.showSubscribe = function(){
      $$('.addsubscribe').on('click', function () {	
       myApp.popup('.popup-addsubscribe');            
     });
-     
-      $$('.save_subscribe').on('click', function () {
-         var data={city_from_id: $$('#begin_id').val(), city_to_id: $$('#end_id').val()};
+   };
+this.saveSubscribe=function(){
+	 var data={city_from_id: $$('#begin_id').val(), city_to_id: $$('#end_id').val()};
          vicFunc.getdataserver('create_subscriptions', data);
           myApp.closeModal('.popup-addsubscribe');
-        });
-       };
+	};		 
  /*add subscibe after save*/
  this.addSubscriptions= function(responseData){
 	var html= $$('#subscribeblocks').html();
@@ -1083,6 +1089,58 @@ this.createYaMap=function(){
 
 return null;	
 };
+
+
+this.dispetcherClick=function(){
+        myApp.popup('.popup-dispetcher');
+};
+this.reloadClick=function(){
+	subscriptionsfrom='';
+   vicFunc.getdataserver('map_points','');
+	};
+
+this.closeActionClick=function(){
+        myApp.closeModal('.popup-action');
+};
+this.subscribeActionClick=function(){
+   if(openRoute!==0){
+        vicFunc.getdataserver('addtosubscriptions','', openRoute);
+    }
+};
+this.getRouteActionClick=function(){
+   if(openRoute!==0){
+      vicFunc.getdataserver('routerequest','', openRoute);
+   }
+   myApp.closeModal('.popup-action');
+}; 
+this.rateActionClick=function(){
+	 if(openRoute!==0){
+       myApp.popup('.popup-rateorder');
+    }	
+};
+this.saveRateClick=function(){
+  if(openRoute!==0){
+    var per_km=0;
+    if($$('#per_km').prop('checked')===true){ per_km=1;}
+    var data={per_km: per_km, rate: $$('#ratecount').val()};
+   /* showlog(data);*/
+    vicFunc.getdataserver('rateoffer',data, openRoute);
+    }
+    myApp.closeModal('.popup-rateorder');
+    myApp.closeModal('.popup-action');
+};
+this.callActionClick=function(){
+    if(openRoute!==0){
+    vicFunc.getdataserver('callback','', openRoute);
+    }
+    myApp.closeModal('.popup-action');	
+};  
+this.questionActionClick=function(){
+    if(openRoute!==0){
+     myApp.popup('.popup-addticket');
+    }
+};
+
 this.notify=function(text, type){
   if ($$('.picker-modal.modal-in').length > 0) {
     myApp.closeModal('.picker-modal.modal-in');
@@ -1157,63 +1215,19 @@ myApp.onPageInit('map', function () {
         domCache:true,
     });
     
-    $$('#dispetcher').on('click', function () {
-        myApp.popup('.popup-dispetcher');
-    });
-    $$('#reload').on('click', function () {
-        subscriptionsfrom='';
-        vicFunc.getdataserver('map_points','');
-    });
-    $$('#close-action').on('click', function () {
-        myApp.closeModal('.popup-action');
-    }); 
-    $$('#subscribe-action').on('click', function () {
-    if(openRoute!==0){
-        vicFunc.getdataserver('addtosubscriptions','', openRoute);
-    }
-    // myApp.closeModal('.popup-action');
-    });  
- 
-        $$('#get-route-action').on('click', function () {
-        if(openRoute!==0){
-          vicFunc.getdataserver('routerequest','', openRoute);
-        }
-        myApp.closeModal('.popup-action');
-        });  
-   $$('#rate-action').on('click', function () {
-    if(openRoute!==0){
-       myApp.popup('.popup-rateorder');
-    }
-   });
-   $$('#saverate').on('click', function () {
-    if(openRoute!==0){
-    var per_km=0;
-    if($$('#per_km').prop('checked')===true){ per_km=1;}
-    var data={per_km: per_km, rate: $$('#ratecount').val()};
-   /* showlog(data);*/
-    vicFunc.getdataserver('rateoffer',data, openRoute);
-    }
-    myApp.closeModal('.popup-rateorder');
-    myApp.closeModal('.popup-action');
-    });  
-  
-  $$('#call-action').on('click', function () {
-    if(openRoute!==0){
-    vicFunc.getdataserver('callback','', openRoute);
-    }
-    myApp.closeModal('.popup-action');
-  });  
-  $$('#question-action').on('click', function () {
-    if(openRoute!==0){
-     myApp.popup('.popup-addticket');
-    }
-  }); 
+
    if( !vicFunc.isFullRole()){
-   $$('#question-action').remove();
-   $$('#call-action').remove();
-   $$('#get-route-action').remove();
-   $$('#rate-action').remove();
-   $$('#saverate').remove();
+   $$('#question-action').css('display', 'none');
+   $$('#call-action').css('display', 'none');
+   $$('#get-route-action').css('display', 'none');
+   $$('#rate-action').css('display', 'none');
+   $$('#saverate').css('display', 'none');
+  }else{
+	$$('#question-action').css('display', 'flex');
+   $$('#call-action').css('display', 'flex');
+   $$('#get-route-action').css('display', 'flex');
+   $$('#rate-action').css('display', 'flex');
+   $$('#saverate').css('display', 'flex');
   }
   var calendar_options={
     input: '#calendar_date_from',

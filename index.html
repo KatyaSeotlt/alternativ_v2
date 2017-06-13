@@ -671,7 +671,7 @@
                             <div class="region_end"></div>
                         </div>
                     </div>
-                    <div class="button-container"><div class="close-popup">ОТМЕНА</div><div class="save_subscribe">СОХРАНИТЬ</div></div>
+                    <div class="button-container"><div class="close-popup">ОТМЕНА</div><div class="save_subscribe" onclick="vicFunc.saveSubscribe();">СОХРАНИТЬ</div></div>
 				</div> 
               
             </div>
@@ -755,12 +755,12 @@
  <div class="popup popup-action tablet-fullscreen">
   <div class="content-block">                
    <div class="containerforbutton">
-    <div class="row-action" id="subscribe-action"><span>Добавить в подписки</span><div class="subscribe-action"><i class="ico ico-star-white"></i></div></div>
-    <div class="row-action" id="close-action"><span></span><div class="close-action"><i class="ico ico-close-white"></i></div></div>
-    <div class="row-action" id="get-route-action"><span>Принять маршрут</span><div class="get-route-action"><i class="ico ico-check-white"></i></div></div>
-    <div class="row-action" id="rate-action"><span>Предложить ставку</span><div class="rate-action"><i class="ico ico-bet-white"></i></div></div>
-    <div class="row-action" id="call-action""><span>Заказать звонок</span><div class="call-action"><i class="ico ico-phone-white"></i></div></div>
-    <div class="row-action" id="question-action"><span>Задать вопрос</span><div class="question-action"><i class="ico ico-question-white"></i></div></div>
+    <div class="row-action" onclick="vicFunc.subscribeActionClick();" id="subscribe-action"><span>Добавить в подписки</span><div class="subscribe-action"><i class="ico ico-star-white"></i></div></div>
+    <div class="row-action" onclick="vicFunc.closeActionClick();" id="close-action"><span></span><div class="close-action"><i class="ico ico-close-white"></i></div></div>
+    <div class="row-action" onclick="vicFunc.getRouteActionClick();" id="get-route-action"><span>Принять маршрут</span><div class="get-route-action"><i class="ico ico-check-white"></i></div></div>
+    <div class="row-action" onclick="vicFunc.rateActionClick();" id="rate-action"><span>Предложить ставку</span><div class="rate-action"><i class="ico ico-bet-white"></i></div></div>
+    <div class="row-action" onclick="vicFunc.callActionClick();" id="call-action""><span>Заказать звонок</span><div class="call-action"><i class="ico ico-phone-white"></i></div></div>
+    <div class="row-action" onclick="vicFunc.questionActionClick();" id="question-action"><span>Задать вопрос</span><div class="question-action"><i class="ico ico-question-white"></i></div></div>
    </div>    
   </div>
  </div>      
@@ -858,7 +858,7 @@
             </div>
             <div class="button_container">
              <div class="close-popup">ОТМЕНА</div>           
-            <div class="saverate" id="saverate">СОХРАНИТЬ</div>
+            <div class="saverate" onclick="vicFunc.saveRateClick();" id="saverate">СОХРАНИТЬ</div>
             </div>
 
             </div>
