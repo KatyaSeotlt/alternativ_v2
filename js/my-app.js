@@ -1034,6 +1034,7 @@ this.activationuserlogin=function(responseData){
 
 this.getSelfPosition=function(){
 	if(myMap!==false){
+   navigator.geolocation.getCurrentPosition(geolocationSuccess);
 	/*ymaps.geolocation.get().then(function (res) {
    lat=res.geoObjects.position[0];
    lng=res.geoObjects.position[1];
@@ -1661,4 +1662,19 @@ if(myApp.mainView.activePage.name==='map'){
     });
 
 
-    
+function geolocationSuccess(position){
+	lat=position.coords.latitude;
+	lng=position.coords.longitude;
+	if(myApp.mainView.activePage.name==='map' && myMap!==false){
+		myMap.setCenter(lat, lng, 10);	
+	myMap.geoObjects.remove(selfPosition);
+   selfPosition = new ymaps.GeoObject({
+        geometry: {
+          type: "Point",
+		  preset:'islands#blueCircleDotIcon',
+          coordinates: [lat, lng] 
+       }
+       });
+		myMap.geoObjects.add(selfPosition); 
+		} 
+	}    
