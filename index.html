@@ -511,16 +511,6 @@
          </div>
       </div>
          <!--Все всплывающие окна здесь-->
-        <!--фома логина-- >
-        <div class="login-screen">
-            <div class="view">
-                <div class="page">
-                    <div class="page-content login-screen-content bgBlack">
-                           
-                    </div>
-                </div>
-            </div>
-        </div-->
 
         <!--Перевозчик или менеджер-->
         <div class="popup popup-standart popup-selectgroup info">
@@ -748,7 +738,7 @@
             </div>
             <div class="button_container">
              <div class="close-popup">ОТМЕНА</div>           
-            <div class="savecars" id="saveNewCar">СОХРАНИТЬ</div>
+            <div class="savecars"  onclick="vicFunc.saveNewCarClick()" id="saveNewCar">СОХРАНИТЬ</div>
             </div>
         </div>
    <!--Действия с маршрутом-->
@@ -837,7 +827,7 @@
             </div>
             <div class="button_container">
              <div class="close-popup">ОТМЕНА</div>           
-            <div class="savecars" id="saveCar">СОХРАНИТЬ</div>
+            <div class="savecars" onclick="vicFunc.saveCarClick()"  id="saveCar">СОХРАНИТЬ</div>
             </div>
         </div>
         
@@ -874,7 +864,7 @@
             </div>
             <div class="button_container">
              <div class="close-popup">ОТМЕНА</div>           
-            <div class="saverate" id="savequestion">СОХРАНИТЬ</div>
+            <div class="saverate" onclick="vicFunc.saveQuestionClick();"  id="savequestion">СОХРАНИТЬ</div>
             </div>
 
          </div>

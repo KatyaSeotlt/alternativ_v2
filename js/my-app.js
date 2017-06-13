@@ -593,30 +593,7 @@ this.savecardata=function(responseData){
 		}
 	 }
 	myApp.popup('.popup-editcars'); 
-	$$('#saveCar').on('click', function () {
-	data =  $$.serializeObject(myApp.formToJSON($$('form#edit-car')));
-	
-	 for (var n in cars_fields) {
-		if(cars_fields.hasOwnProperty(n)){
-		$$('#car'+responseData.id+' .'+cars_fields[n]).html($$('.popup-editcars #'+cars_fields[n]).val());
-		}
-	 }	
-	$$('#car'+responseData.id+' .car_type_id').html( car_types[$$('.popup-editcars #car_type_id').val()] );
-	
-	for (var s in userProfileData.cars) {
-		if(userProfileData.cars.hasOwnProperty(s)){
-			if(userProfileData.cars[s].id===responseData.id){
-				 for (var p in cars_fields) {
-					if(cars_fields.hasOwnProperty(p)){
-						userProfileData.cars[s][cars_fields[p]]=$$('.popup-editcars #'+cars_fields[p]).val();                    
-					}
-				 }	
-			}		
-		}	
-	}
-     vicFunc.getdataserver('car_edit', data, responseData.id);
-     myApp.closeModal('.popup-editcars');
-	 });
+
      
 };
 this.setKMonsubscribes= function(route, mynewroute){
@@ -1091,6 +1068,46 @@ return null;
 };
 
 
+this.saveQuestionClick=function(){
+if(openRoute!==0 && $$('#questionforroute').val()!==''){
+       var theme=openRoute;
+       var msg=$$('#questionforroute').val();
+       var data ={subject:msg};
+        vicFunc.getdataserver('ticket_order', data, theme);       
+    }    
+};
+
+this.saveCarClick=function(){
+	data =  $$.serializeObject(myApp.formToJSON($$('form#edit-car')));
+	
+	 for (var n in cars_fields) {
+		if(cars_fields.hasOwnProperty(n)){
+		$$('#car'+responseData.id+' .'+cars_fields[n]).html($$('.popup-editcars #'+cars_fields[n]).val());
+		}
+	 }	
+	$$('#car'+responseData.id+' .car_type_id').html( car_types[$$('.popup-editcars #car_type_id').val()] );
+	
+	for (var s in userProfileData.cars) {
+		if(userProfileData.cars.hasOwnProperty(s)){
+			if(userProfileData.cars[s].id===responseData.id){
+				 for (var p in cars_fields) {
+					if(cars_fields.hasOwnProperty(p)){
+						userProfileData.cars[s][cars_fields[p]]=$$('.popup-editcars #'+cars_fields[p]).val();                    
+					}
+				 }	
+			}		
+		}	
+	}
+     vicFunc.getdataserver('car_edit', data, responseData.id);
+     myApp.closeModal('.popup-editcars');
+	 };
+
+
+this.saveNewCarClick=function(){
+	data =  $$.serializeObject(myApp.formToJSON($$('form#add-car')));
+	vicFunc.getdataserver('car_create', data);
+    myApp.closeModal('.popup-addcars');
+  };     
 this.dispetcherClick=function(){
         myApp.popup('.popup-dispetcher');
 };
@@ -1412,11 +1429,7 @@ myApp.onPageInit('cars', function () {
     myApp.popup('.popup-addcars');      
  });
 
-  $$('#saveNewCar').on('click', function () {
-	data =  $$.serializeObject(myApp.formToJSON($$('form#add-car')));
-	vicFunc.getdataserver('car_create', data);
-    myApp.closeModal('.popup-addcars');
-  });     
+
 });
 
 
@@ -1647,12 +1660,5 @@ if(myApp.mainView.activePage.name==='map'){
     }
     });
 
-$$("#savequestion").on('click', function(){
-if(openRoute!==0 && $$('#questionforroute').val()!==''){
-       var theme=openRoute;
-       var msg=$$('#questionforroute').val();
-       var data ={subject:msg};
-        vicFunc.getdataserver('ticket_order', data, theme);       
-    }    
-});
+
     
