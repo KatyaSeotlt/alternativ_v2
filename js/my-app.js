@@ -1,4 +1,4 @@
-var serverpath="http://78.108.87.128/api/";//"http://victrack.ru/api/";
+var serverpath="http://victrack.ru/api/";//"http://78.108.87.128/api/";
 var myMap=false;
 var lat='';
 var lng='';
@@ -17,7 +17,7 @@ var subscriptionsfrom='';
 var subscriptionsto='';
 var map_Routes_Detail='';
 var loginclickisset=0;
-var selfPosition;
+var selfPosition=false;
 var routeApp=false;
 var search=1;
 var lastrequest='';
@@ -979,7 +979,7 @@ this.openfirst = function(responseData){
 	});
    window.Echo = new Echo({
     broadcaster: 'socket.io',
-    host: 'http://victrack.ru:6001',
+    host: 'http://victrack.ru:6002',
     auth:
     {
         headers:
@@ -1028,7 +1028,7 @@ if(window.localStorage.getItem("user_id")!==null && ! vicFunc.isUndefined(window
 };
 this.activationuserlogin=function(responseData){
 	if(responseData.message=="auth.timeout"){
-		var timeout=responseData.timeout*1100;	
+		var timeout=responseData.timeout*1100*60;	
 		setTimeout(function(){			
 		  data={resend_token: window.localStorage.getItem("resend_token")};
         vicFunc.getdataserver('activationuserlogin',data);
@@ -1037,8 +1037,10 @@ this.activationuserlogin=function(responseData){
 	};	
 
 this.getSelfPosition=function(){
+//	showlog('getSelfPosition');
 	if(myMap!==false){
    navigator.geolocation.getCurrentPosition(geolocationSuccess);
+	//showlog('myMapNotfalse');
 	/*ymaps.geolocation.get().then(function (res) {
    lat=res.geoObjects.position[0];
    lng=res.geoObjects.position[1];
@@ -1058,8 +1060,12 @@ this.getSelfPosition=function(){
 this.createYaMap=function(){
 
    if(myMap===false || $$('#map').html()===''){
+		center=[55.7522200, 37.6155600];
+		if(lat!=='' && lng!==''){
+			center=[lat, lng];
+		}
         myMap = new ymaps.Map("map", {
-            center: [55.7522200, 37.6155600],
+            center: center,
             zoom: 9,
             controls: ['smallMapDefaultSet']
         });
@@ -1670,9 +1676,13 @@ if(myApp.mainView.activePage.name==='map'){
 function geolocationSuccess(position){
 	lat=position.coords.latitude;
 	lng=position.coords.longitude;
+	showlog('lat'+lat+' lng:'+lng);
 	if(myApp.mainView.activePage.name==='map' && myMap!==false){
-		myMap.setCenter(lat, lng, 10);	
+		showlog(myMap);
+		myMap.setCenter([lat, lng]);
+		if(selfPosition!==false){
 	myMap.geoObjects.remove(selfPosition);
+		}
    selfPosition = new ymaps.GeoObject({
         geometry: {
           type: "Point",
@@ -1681,5 +1691,6 @@ function geolocationSuccess(position){
        }
        });
 		myMap.geoObjects.add(selfPosition); 
+
 		} 
 	}    
