@@ -410,24 +410,36 @@ box-shadow:         1px 3px 6px 0px rgba(0, 0, 0, 0.68);
 }
 .popup-standart.phone .content-block{
        background: url('../images/pages/phonec.png') no-repeat top center;
-    background-size: 7vh 7vh;
-  width: 90vw;
+    background-size: 60px* @dpscale  60px* @dpscale ;
+	width: 90vw;
     left: 5vw;    /*16pd*/
     right: 5vw;    /*16pd*/
-    padding-top: 24vh; 
+    padding-top: 95px* @dpscale; 
     border-bottom: 1px * @dpscale solid #90a4ae;
-    padding-bottom: 2vh; 
+    padding-bottom: 5px* @dpscale; 
     text-align: center;
+	min-height: 180px;
+	margin-bottom: 10px* @dpscale;
+}
+.popup-standart.phone  .popup-inner {
+	font-size: 16px * @dpscale;
+	color: #455a64;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 .popup-standart.info .content-block{
     background: url('../images/pages/infoc.png') no-repeat top center;
-    background-size: 11vh 11vh;
+    background-size: 48px* @dpscale  48px* @dpscale ;
   /*  width: 90vw;*/
     left: 5vw;    /*16pd*/
     right: 5vw;    /*16pd*/
-    padding-top: 20vh; 
+    padding-top: 95px* @dpscale; 
     border-bottom: 0px * @dpscale solid #90a4ae; 
 
+}
+.popup-newpasswordconfirm .popup-inner div.item-title{
+	text-align: left;
 }
 .info .H2{
     font-weight: bold;
@@ -2432,4 +2444,8 @@ div.region.region_search_begin{width: 100%; display: block;}
 	flex-grow: 4;
 	padding: 0px 8px * @dpscale;
  }
+}
+.notifications .close-notification {
+font-size: 1px;
+border:none;
 }

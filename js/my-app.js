@@ -25,6 +25,7 @@ var lastrequestdata='';
 var lastrequestvariable='';
 var cargo_types=lang.cargo_types;
 var loading_types=lang.loading_types;
+var networkState = false;
 function map_error(e){
 	
 }
@@ -42,6 +43,15 @@ function victoryExchangeFunc() {
 //responseData - sometimes is ID
 this.route = function(type, data, responseData){
 	switch(data) {
+		case 'password_reset':
+			if(type=='getpath'){return{path:'password/reset', method:'POST'};}else{_this.passwordReset(responseData);}
+		break;
+		case 'password_code':
+			if(type=='getpath'){return{path:'password/code', method:'POST'};}else{_this.passwordCode(responseData);}
+		break;
+		case 'password_token':
+			if(type=='getpath'){return{path:'password/token', method:'POST'};}else{_this.passwordToken(responseData);}
+		break;	
 		case 'list':
 			if(type=='getpath'){return{path:'list', method:'GET'};}else{search=1;_this.routesshow(responseData,'#listblocks');}
 		break;
@@ -156,7 +166,7 @@ this.route = function(type, data, responseData){
 
  
 this.login=function(login, password) {
-	
+		if(_this.isOnline()){
 		var data={phone:login, password: password};
 		 
 		var header = {'Accept':'application/json', 'X-Requested-With':'XMLHttpRequest'}; 
@@ -179,12 +189,12 @@ this.login=function(login, password) {
 				 _this.openfirst(data);
 				},
 		});
-	
+		}
 	};
 
 	
 	this.getdataserver=function(parent, data, variable) {
-      
+      if(_this.isOnline()){
         var t = _this.route('getpath', parent, variable);
 		  var Accept='application/json';
 		  if(!_this.isUndefined(t.accept)){
@@ -299,6 +309,7 @@ this.login=function(login, password) {
                requestnow=0;
             }
         }
+		}
     };
 this.setAccessToken = function(xhr, responseData){
 	if(!vicFunc.isUndefined(responseData.access_token)) {						
@@ -839,12 +850,16 @@ this.login_first_error = function(responseData){
        vicFunc.getdataserver('activationuserlogin',data);
        myApp.popup('.popup-registrationsms');
       });
-      $$('.popup-sendregistrationsms .close-popup').on('click', function () {
-      
+      $$('.popup-sendregistrationsms .close-popup').on('click', function () {      
        mainView.router.loadPage('index.html'); 
       });        
       myApp.popup('.popup-sendregistrationsms');        
-      }        
+      }else{
+		 msg=JSON.parse(decodeURI(responseData.responseText));            
+		 $$('#entererror').html(msg.message);
+		 myApp.popup('.popup-wrongpass');
+		}
+		
     }
  };
 
@@ -852,6 +867,13 @@ this.setUserProfile = function(responseData){
 	userProfileData=responseData;
 	$$('.person-block #tel').html(userProfileData.phone);
     $$('.person-block #group').html(window.localStorage.getItem("role_label"));
+	 if(vicFunc.isFullRole()){
+		$$('.forUr').show();
+		$$('.forFiz').hide();
+		}else{
+		$$('.forFiz').show();
+		$$('.forUr').hide();	
+		}
 	if(userProfileData.data!==null){
 	$$('.person-block #bank_account').html(userProfileData.data.bank_account);
 	$$('.person-block #bank_bik').html(userProfileData.data.bank_bik);
@@ -875,8 +897,6 @@ this.setUserProfileEdit = function(){
 	$$('.person-block-edit #phone').val(userProfileData.phone);
    
 	$$('.person-block-edit #name').val(userProfileData.name);
-	$$('.person-block-edit #password').val(password);
-	$$('.person-block-edit #password_confirmation').val(password);
 	if(userProfileData.data!==null){
 	$$('.person-block-edit #bank_account').val(userProfileData.data.bank_account);
 	$$('.person-block-edit #bank_bik').val(userProfileData.data.bank_bik);
@@ -894,9 +914,13 @@ this.setUserProfileEdit = function(){
 	$$('.person-block-edit #org_ogrn').val(userProfileData.data.org_ogrn);
 	$$('.person-block-edit #org_post_address').val(userProfileData.data.org_post_address);
 	}
-	
-	
-	if(vicFunc.isFullRole()){$$('.forUr').show();}else{$$('.forUr').hide();}
+	if(vicFunc.isFullRole()){
+		$$('.forUr').show();
+		$$('.forFiz').hide();
+		}else{
+		$$('.forFiz').show();
+		$$('.forUr').hide();	
+		}
 
 };
 this.ticket_message = function(){  
@@ -1035,26 +1059,23 @@ this.activationuserlogin=function(responseData){
 		 }, timeout); 
 	  }
 	};	
-
+this.passwordReset=function(responseData){
+	_this.openInfoPopup(lang.password_cange);
+	};	
+this.passwordCode=function(responseData){	
+    myApp.popup('.popup-newpasswordsms');
+	};	
+this.passwordToken=function(responseData){
+  window.localStorage.setItem("resend_token", responseData.reset_pass_token);
+  myApp.popup('.popup-newpasswordconfirm');
+	};		
+/*Route::post('password/reset', 'Auth\SmsResetPasswordController@postResetPassword'); // post data - reset_pass_token, password, password_confirmation
+Route::post('password/code', 'Auth\SmsResetPasswordController@postSendResetPasswordCode'); // post data - phone
+Route::post('password/token', 'Auth\SmsResetPasswordController@postGenerateResetPasswordToken'); // // post data - reset_pass_code */	
+	
 this.getSelfPosition=function(){
-//	showlog('getSelfPosition');
 	if(myMap!==false){
    navigator.geolocation.getCurrentPosition(geolocationSuccess);
-	//showlog('myMapNotfalse');
-	/*ymaps.geolocation.get().then(function (res) {
-   lat=res.geoObjects.position[0];
-   lng=res.geoObjects.position[1];
-	myMap.setCenter(lat, lng, 10);	
-	myMap.geoObjects.remove(selfPosition);
-   selfPosition = new ymaps.GeoObject({
-        geometry: {
-          type: "Point",
-		  preset:'islands#blueCircleDotIcon',
-          coordinates: [lat, lng] 
-       }
-       });
-		myMap.geoObjects.add(selfPosition); 
-		});*/
 	}
 };
 this.createYaMap=function(){
@@ -1199,6 +1220,21 @@ this.isUndefined=function(v){
 		}
 		return false;	
 	};
+this.isOnline=function(){
+	 networkState = navigator.network.connection.type;	   
+    if(networkState=='none'){
+	   myApp.addNotification({
+       title: lang.no_internet,
+		 closeOnClick: true,
+		 closeIcon: false,
+		 hold: 15000,
+		 additionalClass: 'internet'
+		});
+		return false;
+	 }else{
+		return true;
+	 }
+	};	
 }
 function showlog(m){
 	if(!relise){
@@ -1220,7 +1256,9 @@ function login_click(){
  vicFunc.login($$('#loginPhone').val().replace('+7', 8),$$('#loginPassword').val()); 
 }
 // Logins
-$$(document).on('deviceready', function () {    
+
+$$(document).on('deviceready', function () {
+	 vicFunc.isOnline();
     if(vicFunc.isLogin()){
     var dataforopen=[];
     dataforopen.user={name:'',role_label:''};
@@ -1553,19 +1591,25 @@ $$('form#activation-form').on('submitError', function () {
 $$('#newpasswordstep1').on('click', function () {
    myApp.popup('.popup-newpasswordphone');
 });
-$$('#newpasswordstep2').on('click', function () {
+function  newpasswordstep2() {
    myApp.closeModal('.popup-newpasswordphone');
-   myApp.popup('.popup-newpasswordsms');
-});
-$$('#newpasswordstep3').on('click', function () {
+	var data={phone: $$('#new_password_phone').val()};
+	vicFunc.getdataserver('password_code', data);
+}
+function newpasswordstep3() {
    myApp.closeModal('.popup-newpasswordsms');
-   myApp.popup('.popup-newpasswordconfirm');
-});
-$$('#newpasswordstep4').on('click', function () {
+   var data={reset_pass_code: $$('#new_password_sms_code').val()};
+	vicFunc.getdataserver('password_token', data);
+}
+function newpasswordstep4() {
    myApp.closeModal('.popup-newpasswordconfirm');
-   vicFunc.openInfoPopup(lang.password_cange);
-});
-
+   var data={reset_pass_token: window.localStorage.getItem("resend_token"), password: $$('#new_password').val(), password_confirmation: $$('#new_password_confirm').val() };
+	vicFunc.getdataserver('password_reset', data);
+}
+/*Route::post('password/reset', 'Auth\SmsResetPasswordController@postResetPassword'); // post data - reset_pass_token, password, password_confirmation
+Route::post('password/code', 'Auth\SmsResetPasswordController@postSendResetPasswordCode'); // post data - phone
+Route::post('password/token', 'Auth\SmsResetPasswordController@postGenerateResetPasswordToken'); // // post data - reset_pass_code */	
+	
 $$('.city_search').keyup( function () {    
     var value_seach = $$(this).val();
     if(value_seach.length > 3 && cityIsSearched===0){

@@ -82,37 +82,39 @@
                             </a>
                         </li-->
 
-                        <li class='forUr'>
+                        <li>
                             <div class="item-content">
                                 <div class="item-media"><span class="icon icon-city"></span></div>
                                 <div class="item-inner Hreg">
-                                    <div >ДАННЫЕ ЮР.ЛИЦА</div>
-
+                                    <div class='forUr'>ДАННЫЕ ЮР.ЛИЦА</div>
+									<div class='forFiz' style="display: none;">ДАННЫЕ ПРЕДСТАВИТЕЛЯ</div>
                                 </div>
                             </div>
                         </li>
 
 
-                        <li class='forUr'>
+                        <li>
                             <div class="item-content">
                                 <div class="item-media"></div>
                                 <div class="item-inner">
                                     <div class="item-title label">Название ИП или юр. лица</div>
                                     <div class="item-input">
-                                        <input type="text"  value="" v="Перевозчик" id="org_name" name="org_name">
+                                        <input type="text"  value="" id="org_name" name="org_name">
                                     </div>
                                 </div>
                             </div>
                         </li>
 
-                        <li class='forUr'>
+                        <li>
                             <div class="item-content">
                                 <div class="item-media"></div>
                                 <div class="item-inner">
-                                    <div class="item-title label">ФИО руководителя</div>
+                                    <div class="item-title label" class='forFiz' style="display: none;">ФИО ПАРТНЕРА</div>
+                                    <div class="item-title label" class='forUr'>ФИО руководителя</div>
                                     <div class="item-input">
-                                        <input type="text" value="" v="Вик Алекс Быков" id="org_head_name" name="org_head_name">
+                                        <input type="text" value="" id="org_head_name" name="org_head_name">
                                     </div>
+									<div class="item-error" id="org_head_name-error"></div> 
                                 </div>
                             </div>
                         </li>
@@ -123,8 +125,9 @@
                                 <div class="item-inner">
                                     <div class="item-title label">ИНН</div>
                                     <div class="item-input">
-                                        <input type="number" value="" v="4657466546" id="org_inn" name="org_inn">
+                                        <input type="number" value="" id="org_inn" name="org_inn">
                                     </div>
+									<div class="item-error" id="org_inn-error"></div> 
                                 </div>
                             </div>
                         </li>
@@ -137,6 +140,7 @@
                                     <div class="item-input">
                                         <input type="number" value="" v="652789423" id="org_kpp" name="org_kpp">
                                     </div>
+									<div class="item-error"  id="org_kpp-error"></div> 
                                 </div>
                             </div>
                         </li>
@@ -148,6 +152,7 @@
                                     <div class="item-input">
                                         <input type="number" value="" v="6546879265498" id="org_ogrn" name="org_ogrn">
                                     </div>
+									  <div class="item-error" id="org_ogrn-error"></div> 
                                 </div>
                             </div>
                         </li>
@@ -160,6 +165,7 @@
                                     <div class="item-input">
                                         <textarea class="resizable" id="org_post_address" name="org_post_address"></textarea>
                                     </div>
+									<div class="item-error" id="org_post_address-error"></div> 
                                 </div>
                             </div>
                         </li>
@@ -169,8 +175,9 @@
                                 <div class="item-inner">
                                     <div class="item-title label">Номер телефона</div>
                                     <div class="item-input">
-                                        <input type="tel" value="" v="89657466546" id="org_phone" name="org_phone">
+                                        <input type="tel" value="" id="org_phone" name="org_phone">
                                     </div>
+									 <div class="item-error" id="org_phone-error"></div>
                                 </div>
                             </div>
                         </li>
@@ -181,12 +188,24 @@
                                 <div class="item-inner">
                                     <div class="item-title label">Электронная почта</div>
                                     <div class="item-input">
-                                        <input type="email" value="" v="red_cat101@mail.ru" id="org_email" name="org_email">
+                                        <input type="email" value=""  id="org_email" name="org_email">
                                     </div>
+									<div class="item-error" id="org_email-error"></div> 
                                 </div>
                             </div>
                         </li>
-
+						<li class='forUr'>
+							<div class="item-content">
+								<div class="item-media"></div>
+								<div class="item-inner">
+									<div class="item-title label">Код в АТИ (если имеется)</div>
+									<div class="item-input">
+										<input type="text" name="ati_code">
+									</div>
+									<div class="item-error" id="ati_code-error"></div> 
+								</div>
+							</div>
+						</li>
 
                         <li class='forUr'>
                             <div class="item-content">
@@ -203,6 +222,7 @@
                                     <div class="item-input">
                                         <input type="text" value="" v="Вик Алекс Быков" id="cont_name" name="cont_name">
                                     </div>
+									<div class="item-error" id="cont_name-error"></div> 
                                 </div>
                             </div>
                         </li>
@@ -213,8 +233,9 @@
                                 <div class="item-inner">
                                     <div class="item-title label">Телефон контактного лица</div>
                                     <div class="item-input">
-                                        <input type="tel" value="" v="+79657466546" id="cont_phone" name="cont_phone">
+                                        <input type="tel" value="" id="cont_phone" name="cont_phone">
                                     </div>
+									<div class="item-error" id="cont_phone-error"></div>
                                 </div>
                             </div>
                         </li>
@@ -226,12 +247,24 @@
 								<div class="item-inner">
 									<div class="item-title label">Почта контактного лица</div>
 									<div class="item-input">
-										<input type="email" value="" v="red_cat101@mail.ru" id="cont_email" name="cont_email">
+										<input type="email" value="" id="cont_email" name="cont_email">
 									</div>
+								   <div class="item-error" id="cont_email-error"></div>
 								</div>
 							</div>
 						</li>
-
+						<li class='forUr'>
+							<div class="item-content">
+								<div class="item-media"></div>
+								<div class="item-inner">
+									<div class="item-title label">Дополнительно</div>
+									<div class="item-input">
+										<input type="text" placeholder="Дополнительная информация о контактном лице" name="cont_misc">
+									</div>
+									<div class="item-error" id="cont_misc-error"></div>
+								</div>
+							</div>
+						</li>
                         <li class='forUr'>
                             <div class="item-content">
                                 <div class="item-media"><span class="icon icon-bank"></span></div>
@@ -245,8 +278,9 @@
                                 <div class="item-inner">
                                     <div class="item-title label">Название банка</div>
                                     <div class="item-input">
-                                        <input type="text" value="" v="Сбербанк" id="bank_name" name="bank_name">
+                                        <input type="text" value="" id="bank_name" name="bank_name">
                                     </div>
+									<div class="item-error" id="bank_name-error"></div>
                                 </div>
                             </div>
                         </li>
@@ -259,6 +293,7 @@
                                     <div class="item-input">
                                         <input type="number" value="" v="564564321" id="bank_bik" name="bank_bik">
                                     </div>
+									 <div class="item-error" id="bank_bik-error"></div>
                                 </div>
                             </div>
                         </li>
@@ -271,6 +306,7 @@
                                     <div class="item-input">
                                         <input type="number" value="" v="34135459849654215298" id="bank_korr" name="bank_korr">
                                     </div>
+									<div class="item-error" id="bank_korr-error"></div>
                                 </div>
                             </div>
                         </li>
@@ -282,6 +318,7 @@
                                     <div class="item-input">
                                         <input type="number" value="" v="32135469879654215498" id="bank_account" name="bank_account">
                                     </div>
+									<div class="item-error" id="bank_account-error"></div>
                                 </div>
                             </div>
                         </li>

@@ -15,7 +15,7 @@
             <div class="content-block reg-content-block ">
                 <div class="icon-block"><span class='icon-man'></span></div>
                 <div class="list-block registration-form">
-                    <form id="reg-form" class="list-block ajax-submit" method="POST" action="">
+                    <form id="reg-form" class="list-block vajax-submit" method="POST" action="">
                         <ul>
                             <li>
                                 <div class="item-content">
@@ -90,19 +90,19 @@
 
                                 </div>
                             </li>
-
-                            <li class='forUr'>
+                                       
+                            <li >
                                 <div class="item-content">
                                     <div class="item-media"><span class="icon icon-city"></span></div>
                                     <div class="item-inner Hreg">
-                                        <div >ДАННЫЕ ЮР.ЛИЦА</div>
-
+                                        <div class='forUr'>ДАННЫЕ ЮР.ЛИЦА</div>
+                                        <div class='forFiz' style="display: none;">ДАННЫЕ ПРЕДСТАВИТЕЛЯ</div>
                                     </div>
                                 </div>
                             </li>
 
 
-                            <li class='forUr'>
+                            <li>
                                 <div class="item-content">
                                     <div class="item-media"></div>
                                     <div class="item-inner">
@@ -110,18 +110,19 @@
                                         <div class="item-input">
                                             <input type="text" name="org_name">
                                         </div>
-                                        <div class="item-error" id="org_name-error"></div> 
+                                        <div class="item-error" placeholder="ООО «Новые технологии»" id="org_name-error"></div> 
                                     </div>
                                 </div>
                             </li>
 
-                            <li class='forUr'>
+                            <li >
                                 <div class="item-content">
                                     <div class="item-media"></div>
                                     <div class="item-inner">
-                                        <div class="item-title label">ФИО руководителя</div>
+                                        <div class="item-title label" class='forFiz' style="display: none;">ФИО ПАРТНЕРА</div>
+                                        <div class="item-title label" class='forUr'>ФИО руководителя</div>
                                         <div class="item-input">
-                                            <input type="text" name="name">
+                                            <input type="text" placeholder="Абдулов Эдуард Поликарпович" name="org_head_name">
                                         </div>
                                         <div class="item-error" id="org_head_name-error"></div> 
                                     </div>
@@ -134,7 +135,7 @@
                                     <div class="item-inner">
                                         <div class="item-title label">ИНН</div>
                                         <div class="item-input">
-                                            <input type="number" name="org_inn">
+                                            <input type="number" placeholder="789456123753" name="org_inn">
                                         </div>
                                         <div class="item-error" id="org_inn-error"></div> 
                                     </div>
@@ -147,9 +148,9 @@
                                     <div class="item-inner">
                                         <div class="item-title label">КПП</div>
                                         <div class="item-input">
-                                            <input type="number" name="org_kpp">
+                                            <input type="number" placeholder="234567891" name="org_kpp">
                                         </div>
-                                        <div class="item-error" id="org_kpp-error"></div> 
+                                        <div class="item-error"  id="org_kpp-error"></div> 
                                     </div>
                                 </div>
                             </li>
@@ -159,7 +160,7 @@
                                     <div class="item-inner">
                                         <div class="item-title label">ОГРН</div>
                                         <div class="item-input">
-                                            <input type="number" name="org_ogrn">
+                                            <input type="number" placeholder="1234567893216" name="org_ogrn">
                                         </div>
                                         <div class="item-error" id="org_ogrn-error"></div> 
                                     </div>
@@ -172,19 +173,20 @@
                                     <div class="item-inner">
                                         <div class="item-title label">Почтовый адрес</div>
                                         <div class="item-input">
-                                            <textarea class="resizable" name="org_post_address"></textarea>
+                                            <textarea class="resizable" placeholder="444555, Самарская обл., Победы ул., 25, корп.1" name="org_post_address"></textarea>
                                         </div>
                                         <div class="item-error" id="org_post_address-error"></div> 
                                     </div>
                                 </div>
                             </li>
+                            
                             <li class='forUr'>
                                 <div class="item-content">
                                     <div class="item-media"></div>
                                     <div class="item-inner">
                                         <div class="item-title label">Номер телефона</div>
                                         <div class="item-input">
-                                            <input type="tel" name="org_phone">
+                                            <input type="tel" placeholder="+7 (999) 888 77 55" name="org_phone">
                                         </div>
                                         <div class="item-error" id="org_phone-error"></div> 
                                     </div>
@@ -197,13 +199,24 @@
                                     <div class="item-inner">
                                         <div class="item-title label">Электронная почта</div>
                                         <div class="item-input">
-                                            <input type="email" name="org_email">
+                                            <input type="email" placeholder="vashapochta@gmail.com" name="org_email">
                                         </div>
                                         <div class="item-error" id="org_email-error"></div> 
                                     </div>
                                 </div>
                             </li>
-
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Код в АТИ (если имеется)</div>
+                                        <div class="item-input">
+                                            <input type="text" name="ati_code">
+                                        </div>
+                                        <div class="item-error" id="ati_code-error"></div> 
+                                    </div>
+                                </div>
+                            </li>
 
                             <li class='forUr'>
                                 <div class="item-content">
@@ -221,7 +234,7 @@
                                     <div class="item-inner">
                                         <div class="item-title label">Имя контактного лица</div>
                                         <div class="item-input">
-                                            <input type="text" name="cont_name">
+                                            <input type="text" placeholder="Абдулов Эдуард Поликарпович" name="cont_name">
                                         </div>
                                         <div class="item-error" id="cont_name-error"></div> 
                                     </div>
@@ -234,7 +247,7 @@
                                     <div class="item-inner">
                                         <div class="item-title label">Телефон контактного лица</div>
                                         <div class="item-input">
-                                            <input type="tel" name="cont_phone">
+                                            <input type="tel" placeholder="+7 (999) 888 77 55" name="cont_phone">
                                         </div>
                                         <div class="item-error" id="cont_phone-error"></div>
                                     </div>
@@ -247,13 +260,24 @@
                                     <div class="item-inner">
                                         <div class="item-title label">Почта контактного лица</div>
                                         <div class="item-input">
-                                            <input type="email" name="cont_email">
+                                            <input type="email" placeholder="vashapochta@gmail.com" name="cont_email">
                                         </div>
                                         <div class="item-error" id="cont_email-error"></div>
                                     </div>
                                 </div>
                             </li>
-
+                            <li class='forUr'>
+                                <div class="item-content">
+                                    <div class="item-media"></div>
+                                    <div class="item-inner">
+                                        <div class="item-title label">Дополнительно</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="Дополнительная информация о контактном лице" name="cont_misc">
+                                        </div>
+                                        <div class="item-error" id="cont_misc-error"></div>
+                                    </div>
+                                </div>
+                            </li>
 
 
                             <li class='forUr'>
@@ -272,7 +296,7 @@
                                     <div class="item-inner">
                                         <div class="item-title label">Название банка</div>
                                         <div class="item-input">
-                                            <input type="text" name="bank_name">
+                                            <input type="text" placeholder="Филиал «Центральный» Банка ВТБ в г. Москве" name="bank_name">
                                         </div>
                                         <div class="item-error" id="bank_name-error"></div>
                                     </div>
@@ -285,7 +309,7 @@
                                     <div class="item-inner">
                                         <div class="item-title label">БИК банка</div>
                                         <div class="item-input">
-                                            <input type="number" name="bank_bik">
+                                            <input type="number" placeholder="789456123" name="bank_bik">
                                         </div>
                                         <div class="item-error" id="bank_bik-error"></div>
                                     </div>
@@ -298,7 +322,7 @@
                                     <div class="item-inner">
                                         <div class="item-title label">Кор. счет банка</div>
                                         <div class="item-input">
-                                            <input type="number" name="bank_korr">
+                                            <input type="number" placeholder="78945612378945612378" name="bank_korr">
                                         </div>
                                         <div class="item-error" id="bank_korr-error"></div>
                                     </div>
@@ -310,7 +334,7 @@
                                     <div class="item-inner">
                                         <div class="item-title label">Расчетный счет</div>
                                         <div class="item-input">
-                                            <input type="number" name="bank_account">
+                                            <input type="number" placeholder="78945612378945612378" name="bank_account">
                                         </div>
                                         <div class="item-error" id="bank_account-error"></div>
                                     </div>

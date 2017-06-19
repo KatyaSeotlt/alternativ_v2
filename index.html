@@ -497,9 +497,9 @@
                                 <ul>
                                     <li><button class="button item-link btn-main bt" onclick="login_click();" id="enter_login_form">ВОЙТИ</button></li>
                                 </ul>
-                                <!--div class="list-block-label">
+                                <div class="list-block-label">
                                     <div id="newpasswordstep1">Я забыл пароль</div>
-                                </div-->
+                                </div>
                             </div>
                         </div>
                              <a href="pages/registration.html" class="link bottomplansh">СОЗДАТЬ АККАУНТ</a>             
@@ -579,51 +579,53 @@
                     <div class="popup-inner">
                         <div class="item-title label">Номер телефона:</div>
                         <div class="item-input">
-                            <input type="tel"  name="phone" placeholder="+7(999)999-99-99" >
+                            <input type="tel" id="new_password_phone" name="phone" placeholder="+7(999)999-99-99" >
                         </div>
                     </div>
                 </div> 
             </div>
-            <div class="button close-popup">ОТМЕНА</div><button type="submit" class="button active" id="newpasswordstep2">ДАЛЕЕ</button>
+             <div class="button_container">
+            <button class="button close-popup">ОТМЕНА</button><div class="button active" onclick="newpasswordstep2()" id="newpasswordstep2">ДАЛЕЕ</div>
+            </div>
         </div>
 
         <!--Подверждение по SMS после восстановления пароля-->
-        <div class="popup popup-standart popup-newpasswordsms">
+        <div class="popup popup-standart phone popup-newpasswordsms">
             <div class="content-block">
                 <p class="topPopup"></p>
-                <p  class='center'>Введите код подтверждения</p>
+                <p  class='center'>Введите код, который мы отправили вам в SMS</p>
                 <div class="item-content">
                     <div class="popup-inner">
                         <div class="item-title label">Код подтверждения</div>
                         <div class="item-input">
-                            <input type="number" name="smscode" placeholder="0000">
+                            <input type="number" id="new_password_sms_code" name="smscode" placeholder="000000">
                         </div>
                     </div>
                 </div> 
             </div> 
-            <div class="button close-popup">ОТМЕНА</div><div class="button active" id="newpasswordstep3">ПРОДОЛЖИТЬ</div>
+            <div class="button close-popup">ОТМЕНА</div><div class="button active"  onclick="newpasswordstep3()" id="newpasswordstep3">ДАЛЕЕ</div>
         </div>
         <!--Установка нового пароля-->
-        <div class="popup popup-standart popup-newpasswordconfirm">
+        <div class="popup popup-standart phone popup-newpasswordconfirm">
             <div class="content-block">
                 <p class="topPopup"></p>
-                <p  class='center'>Установить новый пароль</p>
+                <p  class='center'>Установите новый пароль</p>
                 <div class="item-content">
                     <div class="popup-inner">
                         <div class="item-title label">Новый пароль</div>
                         <div class="item-input">
-                            <input type="password" name="paswd" placeholder="******">
+                            <input type="password" id="new_password" name="paswd" placeholder="******">
                         </div>
                     </div>
                 </div> 
                 <div class="popup-inner">
                     <div class="item-title label">Повторите пароль</div>
                     <div class="item-input">
-                        <input type="password" name="paswdconfirm" placeholder="******">
+                        <input type="password" id="new_password_confirm" name="paswdconfirm" placeholder="******">
                     </div>
                 </div>
-            </div>
-            <div class="button close-popup">ОТМЕНА</div><div class="button active" id="newpasswordstep4">ПРОДОЛЖИТЬ</div>
+            </div>    
+            <div class="button close-popup">ОТМЕНА</div><div class="button active" onclick="newpasswordstep4()"  id="newpasswordstep4">УСТАНОВИТЬ</div>
 
         </div>
 
