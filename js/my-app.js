@@ -1588,9 +1588,9 @@ $$('form#activation-form').on('submitError', function () {
     vicFunc.openInfoPopup(lang.bad_activation);
 });
 //logic_restore_password
-$$('#newpasswordstep1').on('click', function () {
+function  newpasswordstep1() {
    myApp.popup('.popup-newpasswordphone');
-});
+}
 function  newpasswordstep2() {
    myApp.closeModal('.popup-newpasswordphone');
 	var data={phone: $$('#new_password_phone').val()};
