@@ -19,6 +19,7 @@ var lang = {
  clearance: 'Габариты', 
  route_length: 'Расстояние',
  carrier_rate: 'Cтавка',
+ carrier_rate_notfull:'чтобы узнать ставку зарегистрируйтесь как перевозчик, или свяжитесь с нашим диспетчером',
  detail_info: 'ПОДРОБНАЯ ИНФОРМАЦИЯ',
  payment_type: 'Варианты оплаты',
  cargo_type: 'Тип груза',

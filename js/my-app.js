@@ -796,10 +796,10 @@ this.saveSubscribe=function(){
     '<div class="region">' + routesList[route].endpoint[1] + '</div>'+
     '</div></div>'+
 	 '<div class="itog">';
-	if(routesList[route].carrier_rate!==null && routesList[route].carrier_rate>0){
+	if(routesList[route].carrier_rate!==null && routesList[route].carrier_rate>0 && vicFunc.isFullRole()){
     routeHtml = routeHtml+ '<div class="cost"><span class="ico icon-rub"></span> ' + routesList[route].carrier_rate + ' '+lang.rub+'</div>';
 	}
-	if(price!==null && price>0 && price!=Infinity){
+	if(price!==null && price>0 && price!=Infinity && vicFunc.isFullRole()){
    routeHtml = routeHtml + '<div class="price">' + price + ' '+lang.rub+'/'+lang.km+'</div>';
 	}
 		if(routesList[route].route_length!==null && routesList[route].route_length > 0){
@@ -1337,7 +1337,7 @@ myApp.onPageInit('map-routes', function () {
     var cars='<i class="ico ico-cars-white"></i>';
      var price=Math.round(map_Routes_Detail[i].carrier_rate /map_Routes_Detail[i].route_length);//count price per km
      var publicprice='';
-     if(price>0){publicprice=price+'RUB/KM';}
+     if(price>0 && price!==null){publicprice=price+'RUB/KM';}
  html = html+'<div class="swiper-slide blok">'+
 '<img class="fon" src="images/pages/top_routemodal.jpg" /><div class="head">'+
 '<div class="head2">'+
@@ -1364,14 +1364,24 @@ myApp.onPageInit('map-routes', function () {
 '<span class="gorod">'+map_Routes_Detail[i].route_length+' км</span>'+
 '</p>'+
 '<p><div class="border showinmap" from="'+map_Routes_Detail[i].startpoint[0]+'" to="'+map_Routes_Detail[i].endpoint[0]+'"><img src="images/pages/ic_explore_blue.svg" /></div></p>'+
-'</div>'+
-'<div class="cena">'+
+'</div>';
+if(vicFunc.isFullRole()){
+if(map_Routes_Detail[i].carrier_rate!==null){
+ html = html+'<div class="cena">'+
 '<p class="mesto3">'+
 '<span class="gorod2">'+lang.carrier_rate+'</span>'+
 '<span class="gorod">'+map_Routes_Detail[i].carrier_rate+' RUB <i>'+publicprice+'</i></span>'+
 '</p>'+
-'</div>'+
-'<div class="podrob">';
+'</div>';
+}
+}else{
+ html = html+'<div class="cena">'+
+'<p class="mesto3">'+
+'<span class="gorod2">'+lang.carrier_rate_notfull+'</span>'+
+'</p>'+
+'</div>';	
+}
+ html = html+'<div class="podrob">';
 var class1=''; var class2='';
 if(opendopinfo){class1='podrinfoclose'; class2='active';}
 html=html+'<a class="podrinfo '+class1+'" name="'+map_Routes_Detail[i].id+'">'+lang.detail_info+'</a>'+
@@ -1606,9 +1616,6 @@ function newpasswordstep4() {
    var data={reset_pass_token: window.localStorage.getItem("resend_token"), password: $$('#new_password').val(), password_confirmation: $$('#new_password_confirm').val() };
 	vicFunc.getdataserver('password_reset', data);
 }
-/*Route::post('password/reset', 'Auth\SmsResetPasswordController@postResetPassword'); // post data - reset_pass_token, password, password_confirmation
-Route::post('password/code', 'Auth\SmsResetPasswordController@postSendResetPasswordCode'); // post data - phone
-Route::post('password/token', 'Auth\SmsResetPasswordController@postGenerateResetPasswordToken'); // // post data - reset_pass_code */	
 	
 $$('.city_search').keyup( function () {    
     var value_seach = $$(this).val();

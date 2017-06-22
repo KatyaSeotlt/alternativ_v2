@@ -646,13 +646,39 @@ background-size:  100% 100%;
  background: url('../images/pages/ic_date_range_grey.svg') center top no-repeat ; 
    background-size: 100% 100%;
 }
-
+.f7-icons.icon-back{
+  background: url('../images/pages/ic_arrow_left_white.svg') center top no-repeat ; 
+  background-size: contain;
+  width: 16px * @dpscale;
+  height: 16px * @dpscale;
+  font-size: 0px;
+  display: block;
+}
 .icon-dates-blue{
  background: url('../images/pages/ic_date_range_blue.svg') center center no-repeat;   
    background-size: 16px * @dpscale 16px * @dpscale !important;
 }
-
-
+.button.save .f7-icons {
+  background: url('../images/pages/ic_check_white.svg') center top no-repeat ; 
+  background-size: contain;
+  width: 28px * @dpscale;
+  height: 22px * @dpscale;
+  font-size: 0px;
+  margin-top: 13px * @dpscale;
+  display: block;
+}
+#pageContentRegistration .button.save .f7-icons {
+	  margin-top: 5px * @dpscale;
+}
+.close .f7-icons{
+  background: url('../images/pages/ic_close_gray.svg') center top no-repeat ; 
+  background-size: contain;
+  width: 20px * @dpscale;
+  height: 20px * @dpscale;
+  font-size: 0px;
+  margin: 13px * @dpscale 12px * @dpscale;
+  display: block;	
+}
 
 
 .icon-phone-gray{
@@ -1277,6 +1303,7 @@ display: block;
 .carblock {
  background: #ffffff;
  border-radius:  4px * @dpscale;
+ margin-bottom: 10px;
 }
 .carblock .header{
  background: #174c4d;
