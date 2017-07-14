@@ -28,6 +28,7 @@ var loading_types=lang.loading_types;
 var networkState = false;
 var showMessage=0;
 var search_data={};
+var isSearch=0;
 function map_error(e){
 	
 }
@@ -55,7 +56,7 @@ this.route = function(type, data, responseData){
 			if(type=='getpath'){return{path:'password/token', method:'POST'};}else{_this.passwordToken(responseData);}
 		break;	
 		case 'list':
-			if(type=='getpath'){return{path:'list', method:'GET'};}else{search=1;_this.routesshow(responseData,'#listblocks');}
+			if(type=='getpath'){return{path:'list', method:'GET'};}else{search=1;isSearch=0;_this.routesshow(responseData,'#listblocks');}
 		break;
 		case 'map_points':
 			if(type=='getpath'){return{path:'map/points',method:'POST'};}else{_this.createMap(responseData);}
@@ -91,7 +92,7 @@ this.route = function(type, data, responseData){
 			if(type=='getpath'){return{path:'map',method:'POST'}; }else{myApp.closePanel();_this.createMap(responseData);}
 		break;
 		case 'list_search':
-			if(type=='getpath'){return{path:'list',method:'POST'};}else{myApp.closePanel();search=0;_this.routesshow(responseData,'#listblocks');}
+			if(type=='getpath'){return{path:'list',method:'POST'};}else{myApp.closePanel();search=1;isSearch=0;_this.routesshow(responseData,'#listblocks');}
 		break;
 		case 'car_types':
 			if(type=='getpath'){return{path:'settings/cars/types',method:'GET'};}else{car_types=responseData;vicFunc.carsshow();}
@@ -417,14 +418,15 @@ this.ticketThemeCreate = function (responseData){
   myApp.popup('.popup-info-ticket');
  };
  this.openTicket= function () {
-	var id=$$(this).attr('ticket');
-  myApp.closeModal('.popup-info-ticket');
-myApp.closeModal('.popup-action');
+	var id= $$('.popup-info-ticket .button').attr('ticket');
+   myApp.closeModal('.popup-info-ticket');
+	myApp.closeModal('.popup-action');
  
-		 if(id!=0){
-		showMessage=1;	
-		 mainView.router.loadPage('pages/message.html');
-		 vicFunc.getdataserver('ticket_view','', id);
+	if(id!=0){
+	 showMessage=1;	
+	 mainView.router.loadPage('pages/message.html');
+	 $$('#themeid').val(id);
+	 vicFunc.getdataserver('ticket_view','', id);
 	 }
  };
 this.createMap = function (responseData) {
@@ -835,7 +837,9 @@ this.saveSubscribe=function(){
 	if(parent=='#listblocks' && search==1){
 	 pagelistload=responseData.current_page+1;
 	 last_page=responseData.last_page;
+	 if(responseData.current_page>1){
  	 routeHtml=$$(parent).html()+routeHtml;
+	 }
 	 loading=0;
 	}
     $$(parent).html(routeHtml);
@@ -1335,7 +1339,7 @@ myApp.onPageInit('list', function () {
     $$('.infinite-scroll').on('infinite', function () {                   
      if(loading===0 && last_page>=pagelistload){
        loading=1;
-		 if(search==1){
+		 if(isSearch===0){
        vicFunc.getdataserver('list',{page: pagelistload});
 		 }else{
 			search_data.page=pagelistload;
@@ -1498,6 +1502,7 @@ myApp.onPageInit('message', function () {
     $$('button.sendMsg').on('click', function () {
         var theme=$$('#themeid').val();
         var msg=$$('#themenewmsg').val();
+		 
         if(theme!=='' && msg!==''){
             var data={message:msg};
         vicFunc.getdataserver('ticket_message', data, theme);

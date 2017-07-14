@@ -180,9 +180,9 @@ input[type="text"]{border-bottom:1px solid #969b9f !important;}
 input[type="password"]{border-bottom:1px solid #969b9f !important;}
 
 div.page-content div.list-block li.item-content{ padding-left: 0 !important;}
+
 }
-
-
+div#login-form .list-block .item-title.label{width: 100%;}
 
 /*div.item-media{padding-top: 0px * @dpscale !important;}*/
 
@@ -663,8 +663,8 @@ background-size:  100% 100%;
 .button.save .f7-icons {
   background: url('../images/pages/ic_check_white.svg') center top no-repeat ; 
   background-size: contain;
-  width: 28px * @dpscale;
-  height: 22px * @dpscale;
+  width: 90%;
+  height: 90%;
   font-size: 0px;
   margin-top: 13px * @dpscale;
   display: block;
@@ -673,7 +673,7 @@ background-size:  100% 100%;
 	  margin-top: 5px * @dpscale;
 }
 .close .f7-icons{
-  background: url('../images/pages/ic_close_gray.svg') center top no-repeat ; 
+  background: url('../images/pages/ic_close_white.svg') center top no-repeat ; 
   background-size: contain;
   width: 20px * @dpscale;
   height: 20px * @dpscale;
@@ -1229,6 +1229,7 @@ display: block;
 	text-align: center;
 	line-height: 60px * @dpscale;
 	background: #00acc1;
+	-webkit-backface-visibility: hidden;
 }
 .disabled-car, .paid{
 	opacity: 0.8;
@@ -1720,7 +1721,9 @@ color: rgba(144,164,174,1);
 padding-bottom: 40px * @dpscale;
 
 }
-
+.panel-right{
+	width: 100%;	
+}
 div.search-block div.begin div:nth-child(2).address-name{display: -webkit-box;
 display: -webkit-flex;
 display: -ms-flexbox;
@@ -1759,7 +1762,7 @@ flow: row wrap;
 	
 	.top{
 		background: @color-blue;
-		width: 85%;
+		width: 100%;
 		padding-top: 40px * @dpscale;
 		padding-left: 40px * @dpscale;
 		
