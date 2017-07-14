@@ -751,7 +751,7 @@
     <div class="row-action" onclick="vicFunc.closeActionClick();" id="close-action"><span></span><div class="close-action"><i class="ico ico-close-white"></i></div></div>
     <div class="row-action" onclick="vicFunc.getRouteActionClick();" id="get-route-action"><span>Принять маршрут</span><div class="get-route-action"><i class="ico ico-check-white"></i></div></div>
     <div class="row-action" onclick="vicFunc.rateActionClick();" id="rate-action"><span>Предложить ставку</span><div class="rate-action"><i class="ico ico-bet-white"></i></div></div>
-    <div class="row-action" onclick="vicFunc.callActionClick();" id="call-action""><span>Заказать звонок</span><div class="call-action"><i class="ico ico-phone-white"></i></div></div>
+    <div class="row-action"><a href="tel:88009995566"><span>Заказать звонок</span><div class="call-action"><i class="ico ico-phone-white"></i></a></div></div>
     <div class="row-action" onclick="vicFunc.questionActionClick();" id="question-action"><span>Задать вопрос</span><div class="question-action"><i class="ico ico-question-white"></i></div></div>
    </div>    
   </div>
@@ -839,7 +839,7 @@
             <p class="topPopup rate"></p>
             <p class="name">Предложить свою ставку для маршрута?</p>
             <div class="rate-order-names"><div class="ratetxt"><span class="ico icon-rub"></span>ВАША СТАВКА</div>
-            <div class="formrate"><input type="text" id="ratecount" name="rate" value="">
+            <div class="formrate"><input type="text" placeholder="00" id="ratecount" name="rate" value="">
              <div class="selector">
             <div class="label" id="perkm">RUB/КМ</div>
             <div class="item-input">
@@ -879,7 +879,14 @@
                 <div class="button close-popup">OK</div>
             </div>
         </div>
-        
+              <!--информационное сообщение-->
+        <div class="popup popup-info-ticket">
+            <div class="content-block">
+                <p class="topPopup"></p>
+                <p>Тикет создан</p>
+                <div class="button" onclick="vicFunc.openTicket();" ticket="0">OK</div>
+            </div>
+        </div>    
         <!--Логин/пароль не верны-->
         <div class="popup popup-standart popup-wrongpass info">
             <div class="content-block">

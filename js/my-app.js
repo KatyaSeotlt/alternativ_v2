@@ -26,6 +26,8 @@ var lastrequestvariable='';
 var cargo_types=lang.cargo_types;
 var loading_types=lang.loading_types;
 var networkState = false;
+var showMessage=0;
+var search_data={};
 function map_error(e){
 	
 }
@@ -128,7 +130,7 @@ this.route = function(type, data, responseData){
 			if(type=='getpath' && !_this.isUndefined(responseData) ){ return {path:'tickets-list/'+responseData+'/close', method:'POST'}; }else{}
 		break;
 		case 'ticket_order':
-			if(type=='getpath' && !_this.isUndefined(responseData)){ return {path: responseData+'/ticket', method:'POST'}; }else{myApp.closeModal('.popup-addticket');_this.openInfoPopup(lang.tiket_created);}
+			if(type=='getpath' && !_this.isUndefined(responseData)){ return {path: responseData+'/ticket', method:'POST'}; }else{myApp.closeModal('.popup-addticket');_this.openInfoPopupTicket(lang.tiket_created, responseData.id);}
 		break;
 		case 'delete_subscriptions':
 			if(type=='getpath' && !_this.isUndefined(responseData)){ return {path:'settings/subscriptions/'+responseData+'/delete', method:'DELETE'}; }else{ }
@@ -342,7 +344,8 @@ this.ticketThemeView = function (responseData){
 		} ); 
 	$$('#message-container').scrollTop(sh); 
 	$$('.theme-tab').removeClass('active');
-	$$('.messages-tab').addClass('active');	
+	$$('.messages-tab').addClass('active');
+	showMessage=0;
 };
 
 /* get city */
@@ -407,6 +410,22 @@ this.ticketThemeCreate = function (responseData){
  this.openInfoPopup = function (name) { 
   $$('#msg-info-popup').html(name);
   myApp.popup('.popup-info');
+ };
+ 
+  this.openInfoPopupTicket = function (name, id) {  
+  $$('.popup-info-ticket .button').attr('ticket', id);
+  myApp.popup('.popup-info-ticket');
+ };
+ this.openTicket= function () {
+	var id=$$(this).attr('ticket');
+  myApp.closeModal('.popup-info-ticket');
+myApp.closeModal('.popup-action');
+ 
+		 if(id!=0){
+		showMessage=1;	
+		 mainView.router.loadPage('pages/message.html');
+		 vicFunc.getdataserver('ticket_view','', id);
+	 }
  };
 this.createMap = function (responseData) {
    // var rdata=responseData;
@@ -1316,7 +1335,12 @@ myApp.onPageInit('list', function () {
     $$('.infinite-scroll').on('infinite', function () {                   
      if(loading===0 && last_page>=pagelistload){
        loading=1;
-       vicFunc.getdataserver('list',{page: pagelistload});                 
+		 if(search==1){
+       vicFunc.getdataserver('list',{page: pagelistload});
+		 }else{
+			search_data.page=pagelistload;
+			vicFunc.getdataserver('list_search',search_data);
+		 }
      }
    });
 });
@@ -1465,7 +1489,9 @@ myApp.onPageInit('subscribe', function () {
 });
 
 myApp.onPageInit('message', function () {
+	if(showMessage==0){
     vicFunc.getdataserver('tickets','');
+	}
     $$('.theme-tab').on('click', function () {
       vicFunc.getdataserver('tickets','');
     });
@@ -1477,6 +1503,7 @@ myApp.onPageInit('message', function () {
         vicFunc.getdataserver('ticket_message', data, theme);
         }
     });
+	 
 });
 
 myApp.onPageInit('cars', function () {
@@ -1714,6 +1741,7 @@ $$('#search_save').on('click', function(){
         if($$(this)[0].selected===true){car_in.push($$(this).val());}
     });   
     data.car_in=car_in;
+	 search_data=data;
 //showlog(data);
 if(myApp.mainView.activePage.name==='map'){
     vicFunc.getdataserver('map', data);
