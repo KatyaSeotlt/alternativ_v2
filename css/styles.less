@@ -669,9 +669,7 @@ background-size:  100% 100%;
   margin-top: 13px * @dpscale;
   display: block;
 }
-#pageContentRegistration .button.save .f7-icons {
-	  margin-top: 5px * @dpscale;
-}
+
 .close .f7-icons{
   background: url('../images/pages/ic_close_white.svg') center top no-repeat ; 
   background-size: contain;
@@ -681,8 +679,13 @@ background-size:  100% 100%;
   margin: 13px * @dpscale 12px * @dpscale;
   display: block;	
 }
-
-
+.reg-content-block .close .f7-icons{
+  background: url('../images/pages/ic_close_gray.svg') center top no-repeat ;
+    background-size: contain;
+}
+.button.save .f7-icons {
+	margin-top: 50%;
+}
 .icon-phone-gray{
    width: 13px * @dpscale;
    background: url('../images/pages/ic_phone_gray.svg') center top no-repeat ;
@@ -1724,15 +1727,16 @@ padding-bottom: 40px * @dpscale;
 .panel-right{
 	width: 100%;	
 }
-div.search-block div.begin div:nth-child(2).address-name{display: -webkit-box;
+div.search-block div.begin div:nth-child(2).address-name{
+	display: -webkit-box;
 display: -webkit-flex;
 display: -ms-flexbox;
 display: flex;
 flow: row wrap;
--webkit-box-align:start;
--webkit-align-items:flex-start;
--ms-flex-align:start;
-        align-items:flex-start;
+-webkit-box-align:center;
+-webkit-align-items:center;
+-ms-flex-align:center;
+        align-items:center;
 -webkit-box-pack:start;
 -webkit-justify-content:flex-start;
 -ms-flex-pack:start;
