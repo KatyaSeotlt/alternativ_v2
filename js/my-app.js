@@ -380,8 +380,10 @@ this.createDivCity = function (responseData){
 		$$('.region_'+tid).text(region);
 		$$('#cities').css({display: 'none', zIndex: '-1'}); 
 		});
+		$$('.close').click(function(){$$('#cities').css({display: 'none', zIndex: '-1'}); });
 	 $$('#cities').css({left: coords.left + "px", top: coords.bottom + "px", display: 'block', zIndex: '12510'}); 
 };
+
 
 this.ticketThemeCreate = function (responseData){
 	var html='';
