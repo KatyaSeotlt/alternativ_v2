@@ -663,10 +663,12 @@ background-size:  100% 100%;
 .button.save .f7-icons {
   background: url('../images/pages/ic_check_white.svg') center top no-repeat ; 
   background-size: contain;
-  width: 90%;
-  height: 90%;
+  background-position:0 0;
+  width: 100%;
+  height: 100%;
   font-size: 0px;
-  margin-top: 13px * @dpscale;
+  //margin-top: 13px * @dpscale;
+  margin:0 auto;
   display: block;
 }
 
@@ -775,13 +777,16 @@ html.pixel-ratio-2  .list-block .item-inner.Hreg:after {
 .save{
     color: #ffffff;
     background: #00897b;
-    border: #00897b; 
+	background: url('../images/pages/ic_check_white.svg') #00897b center top no-repeat ; 
+    border: #00897b;
     width: 48px * @dpscale;
     height:48px * @dpscale;
     text-align: center;
     border-radius: 48px * @dpscale;
     line-height: 55px * @dpscale;
     margin: 8px * @dpscale;
+	 background-size: 70%;
+    background-position: 50% 40%;
 }
 .close{
     color: #90a4ae;
@@ -1786,6 +1791,7 @@ flow: row wrap;
 	}
 	
 	.button-container {
+		width: 100%;
 	padding-top: 0px;	
 	text-align: left;
 	justify-content: flex-start;
