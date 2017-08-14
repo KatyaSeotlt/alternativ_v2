@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "402943885623",
+    "firebase_url": "https://victrack-58067.firebaseio.com",
+    "project_id": "victrack-58067",
+    "storage_bucket": "victrack-58067.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402943885623:android:1b23d0db26c6b517",
+        "android_client_info": {
+          "package_name": "com.seotlt.victory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402943885623-jleg4thoadt5tnhhh44sf11vf7lnophl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB53D_0S-QQh0PbxMFtBi732xK0oPgYHq0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
