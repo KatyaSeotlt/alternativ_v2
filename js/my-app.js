@@ -183,11 +183,10 @@ this.route = function(type, data, responseData){
 	} 
 };
 
- 
 this.login=function(login, password) {
 		if(_this.isOnline()){
-		var data={phone:login, password: password, push:vicFunc_token};
-		 
+		//var data={phone:login, password: password, push:vicFunc_token};
+		 var data={phone:login, password: password};
 		var header = {'Accept':'application/json', 'X-Requested-With':'XMLHttpRequest'}; 
 		 
 		var xhr = $$.ajax({
