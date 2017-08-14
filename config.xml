@@ -21,10 +21,9 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <icon src="images/pages/logo.png" />
+    <platform name="android">
      <Preference name = 'phonegap-version' value = 'cli-7.0.1' /> 
      <preference name = 'pgb-builder-version' value = '2' />
-    <platform name="android">
-        <resource-file src="google-services.json" target="google-services.json" />
         <preference name="android-minSdkVersion" value="14" />
         <allow-intent href="market:*" />
         <feature name="Geolocation">
@@ -43,14 +42,18 @@
         </manifest>
     </platform>
     <platform name="ios">
-     <resource-file src="GoogleService-Info.plist" />
           <preference name="orientation" value="portrait" />
          <preference name="fullscreen" value="true" />
          <preference name="KeepRunning" value="false"/>
          <preference name="SplashScreen" value="splash"/>
          <preference name="android-build-tool" value="gradle" />  
          <preference name="target-device" value="handset" />      <!-- all: possible values handset, tablet, or universal -->
-     
+       
+        
+       
+          
+       
+        
        <icon platform="ios" src="images/icons/ios/Icon-App-29x29@1x.png" width="29" height="29" />
        <icon platform="ios" src="images/icons/ios/Icon-App-29x29@2x.png" width="58" height="58" />
        <icon platform="ios" src="images/icons/ios/Icon-App-40x40@1x.png" width="40" height="40" />
@@ -73,5 +76,8 @@
     <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
     <plugin name="cordova-plugin-geolocation" spec="~2.4.3" />
     <plugin name="cordova-plugin-network-information" spec="~1.3.3" />
-    <plugin name="phonegap-plugin-push" spec="2.0.0" />
+    <plugin name="cordova-plugin-fcm-config" spec="~1.0.0" />
+    <plugin name="cordova-plugin-firebase" spec="~0.1.23" />
+
+     
 </widget>
