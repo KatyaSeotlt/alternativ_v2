@@ -31,6 +31,37 @@ var search_data={};
 var isSearch=0;
 var vicFunc_token="";
 
+var push = PushNotification.init({
+	android: {
+	},
+    browser: {
+        pushServiceURL: 'http://push.api.phonegap.com/v1/push'
+    },
+	ios: {
+		alert: "true",
+		badge: "true",
+		sound: "true"
+	},
+	windows: {}
+});
+
+push.on('registration', function(data) {
+	vicFunc_token=data.registrationId;
+	alert("Получили токен"+vicFunc_token);
+});
+
+push.on('notification', function(data) {
+	// data.message,
+	// data.title,
+	// data.count,
+	// data.sound,
+	// data.image,
+	// data.additionalData
+});
+
+push.on('error', function(e) {
+	// e.message
+});
 
 function map_error(e){
 	
@@ -1315,7 +1346,9 @@ $$(document).on('deviceready', function () {
 	 dataforopen.user.id=window.localStorage.getItem("user_id"); 
     vicFunc.openfirst(dataforopen);
     }
-	if(window.FirebasePlugin){
+	 
+	 
+/*	if(window.FirebasePlugin){
 window.FirebasePlugin.grantPermission();
 window.FirebasePlugin.getToken(function(token) {
     // save this server-side and use it to push notifications to this device
