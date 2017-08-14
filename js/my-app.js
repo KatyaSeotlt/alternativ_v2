@@ -30,24 +30,8 @@ var showMessage=0;
 var search_data={};
 var isSearch=0;
 var vicFunc_token="";
-if(window.FirebasePlugin){
-window.FirebasePlugin.grantPermission();
-window.FirebasePlugin.getToken(function(token) {
-    // save this server-side and use it to push notifications to this device
-	 vicFunc_token=token;
-   // console.log(token);
-}, function(error) {
-    //console.error(error);
-});
-window.FirebasePlugin.onTokenRefresh(function(token) {
-    // save this server-side and use it to push notifications to this device
-  	 vicFunc_token=token;
-}, function(error) {
-  //  console.error(error);
-});
-}else{
-	alert('no push');
-}
+
+
 function map_error(e){
 	
 }
@@ -1331,6 +1315,25 @@ $$(document).on('deviceready', function () {
 	 dataforopen.user.id=window.localStorage.getItem("user_id"); 
     vicFunc.openfirst(dataforopen);
     }
+	if(window.FirebasePlugin){
+window.FirebasePlugin.grantPermission();
+window.FirebasePlugin.getToken(function(token) {
+    // save this server-side and use it to push notifications to this device
+	 vicFunc_token=token;
+   // console.log(token);
+}, function(error) {
+    //console.error(error);
+});
+window.FirebasePlugin.onTokenRefresh(function(token) {
+    // save this server-side and use it to push notifications to this device
+  	 vicFunc_token=token;
+}, function(error) {
+  //  console.error(error);
+});
+}else{
+	alert('no push');
+} 
+	 
 });
 
 myApp.onPageInit('map', function () {
