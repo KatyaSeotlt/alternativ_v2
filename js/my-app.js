@@ -1315,7 +1315,7 @@ $$(document).on('deviceready', function () {
 	 dataforopen.user.id=window.localStorage.getItem("user_id"); 
     vicFunc.openfirst(dataforopen);
     }
-/*	if(window.FirebasePlugin){
+	if(window.FirebasePlugin){
 window.FirebasePlugin.grantPermission();
 window.FirebasePlugin.getToken(function(token) {
     // save this server-side and use it to push notifications to this device
@@ -1334,13 +1334,13 @@ window.FirebasePlugin.onTokenRefresh(function(token) {
 });
 }else{
 	alert('no push');
-}*/ 
+} /*
 FCMPlugin.onTokenRefresh(function(token){
     alert("Обновили токен 2"+ token );
 });
 FCMPlugin.getToken(function(token){
     alert("Получили токен 2"+token);
-});
+});*/
 });
 
 myApp.onPageInit('map', function () {
