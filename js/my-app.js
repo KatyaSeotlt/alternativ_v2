@@ -45,6 +45,8 @@ window.FirebasePlugin.onTokenRefresh(function(token) {
 }, function(error) {
   //  console.error(error);
 });
+}else{
+	alert('no push');
 }
 function map_error(e){
 	
