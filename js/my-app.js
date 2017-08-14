@@ -180,7 +180,7 @@ this.login=function(login, password) {
 		var data={phone:login, password: password, push: window.localStorage.getItem("registrationId")};
 		 //var data={phone:login, password: password}; 
 		var header = {'Accept':'application/json', 'X-Requested-With':'XMLHttpRequest'}; 
-		_this.dummypush();
+		//_this.dummypush();
 		var xhr = $$.ajax({
                 method: 'POST',
                 url: serverpath+'login/',
@@ -1334,12 +1334,12 @@ $$(document).on('deviceready', function () {
         push.on('registration', function(data) {
           
 
-           // var oldRegId = localStorage.getItem('registrationId');
-           // if (oldRegId !== data.registrationId) {
+            var oldRegId = localStorage.getItem('registrationId');
+            if (oldRegId !== data.registrationId) {
                 // Save new registration ID
                 localStorage.setItem('registrationId', data.registrationId);
                 // Post registrationId to your app server as the value has changed
-            //}            
+            }            
         });
 
         push.on('error', function(e) {
@@ -1349,12 +1349,12 @@ $$(document).on('deviceready', function () {
         push.on('notification', function(data) {
             console.log('notification event');
 				vicFunc.notify(data.title+"<br>"+data.message,2);
-            navigator.notification.alert(
+            /*navigator.notification.alert(
                 data.message,         // message
                 null,                 // callback
                 data.title,           // title
                 'Ok'                  // buttonName
-            );
+            );*/
        });
      
 	 /*
