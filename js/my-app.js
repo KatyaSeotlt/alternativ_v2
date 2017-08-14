@@ -173,10 +173,10 @@ this.route = function(type, data, responseData){
  
 this.login=function(login, password) {
 		if(_this.isOnline()){
-		//var data={phone:login, password: password, push:vicFunc_token};
-		 var data={phone:login, password: password};
+		var data={phone:login, password: password, push: window.localStorage.getItem("registrationId")};
+		 //var data={phone:login, password: password}; 
 		var header = {'Accept':'application/json', 'X-Requested-With':'XMLHttpRequest'}; 
-		 
+		 _this.dummypush();
 		var xhr = $$.ajax({
                 method: 'POST',
                 url: serverpath+'login/',
@@ -193,7 +193,7 @@ this.login=function(login, password) {
 				success: function (data) {
 				 _this.setAccessToken(xhr, data);
 				 _this.openfirst(data);
-				_this.dummypush();
+				
 				 
 				 
 				 
@@ -202,13 +202,13 @@ this.login=function(login, password) {
 		}
 	};
 this.dummypush=function(){
-		var data={apikey:vicFunc_token};
+		var data={apikey:window.localStorage.getItem("registrationId")};
 	 $$.ajax({
                 method: 'GET',
                 url: 'http://victory.seotlt.ru/push.php' ,
                 crossDomain: true,
 					 dataType: 'text',
-                headers: header,
+                headers:  {'Accept':'application/json'},
                 contentType: 'application/x-www-form-urlencoded', // 'application/json',
                 data: data,
                 error: function (xhr) {				
@@ -1331,7 +1331,7 @@ $$(document).on('deviceready', function () {
 
 
         push.on('registration', function(data) {
-            alert('registration event: ' + data.registrationId);
+          
 
             var oldRegId = localStorage.getItem('registrationId');
             if (oldRegId !== data.registrationId) {
