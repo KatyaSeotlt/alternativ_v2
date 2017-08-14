@@ -1320,7 +1320,7 @@ window.FirebasePlugin.grantPermission();
 window.FirebasePlugin.getToken(function(token) {
     // save this server-side and use it to push notifications to this device
 	 vicFunc_token=token;
-	 alert(token);
+	 alert("Получили токен"+vicFunc_token);
    // console.log(token);
 }, function(error) {
     //console.error(error);
@@ -1328,7 +1328,7 @@ window.FirebasePlugin.getToken(function(token) {
 window.FirebasePlugin.onTokenRefresh(function(token) {
     // save this server-side and use it to push notifications to this device
   	 vicFunc_token=token;
-	  alert(token);
+	  alert("Обновили токен"+vicFunc_token);
 }, function(error) {
   //  console.error(error);
 });
