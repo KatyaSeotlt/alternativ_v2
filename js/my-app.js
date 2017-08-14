@@ -57,7 +57,10 @@ this.route = function(type, data, responseData){
 		break;
 		case 'password_token':
 			if(type=='getpath'){return{path:'password/token', method:'POST'};}else{_this.passwordToken(responseData);}
-		break;	
+		break;
+	   case 'logout':
+			if(type=='getpath'){return{path:'logout', method:'POST'};}else{}
+		break;
 		case 'list':
 			if(type=='getpath'){return{path:'list', method:'GET'};}else{search=1;isSearch=0;_this.routesshow(responseData,'#listblocks');}
 		break;
@@ -163,6 +166,7 @@ this.route = function(type, data, responseData){
 		case 'routerequest':
 			if(type=='getpath' && !_this.isUndefined(responseData)){ return {path: responseData+'/routerequest', method:'POST'}; }else{_this.openInfoPopup(lang.rate_seng_dispether);}
 		break;
+	
 		case 'callback':
 			if(type=='getpath' && !_this.isUndefined(responseData)){ return {path: responseData+'/callback', method:'POST'}; }else{_this.openInfoPopup(lang.rate_seng_dispether);}
 		break;	
@@ -176,7 +180,7 @@ this.login=function(login, password) {
 		var data={phone:login, password: password, push: window.localStorage.getItem("registrationId")};
 		 //var data={phone:login, password: password}; 
 		var header = {'Accept':'application/json', 'X-Requested-With':'XMLHttpRequest'}; 
-		 _this.dummypush();
+		_this.dummypush();
 		var xhr = $$.ajax({
                 method: 'POST',
                 url: serverpath+'login/',
@@ -193,10 +197,6 @@ this.login=function(login, password) {
 				success: function (data) {
 				 _this.setAccessToken(xhr, data);
 				 _this.openfirst(data);
-				
-				 
-				 
-				 
 				},
 		});
 		}
@@ -991,7 +991,8 @@ this.openfirst = function(responseData){
       window.localStorage.setItem("role_id", responseData.user.role_id);
 		 window.localStorage.setItem("user_id", responseData.user.id); 
 	mainView.router.loadPage('pages/map.html');  
-	$$('#exit_icon').on('click', function () {		
+	$$('#exit_icon').on('click', function () {
+	 vicFunc.getdataserver('logout', {push:localStorage.getItem('registrationId')});
       window.localStorage.clear();
 	 myApp.closePanel();
 	 mainView.router.loadPage("index.html");
@@ -1347,12 +1348,13 @@ $$(document).on('deviceready', function () {
 
         push.on('notification', function(data) {
             console.log('notification event');
-            navigator.notification.alert(
+				vicFunc.notify(data.title+"<br>"+data.message,2);
+            /*navigator.notification.alert(
                 data.message,         // message
                 null,                 // callback
                 data.title,           // title
                 'Ok'                  // buttonName
-            );
+            );*/
        });
      
 	 /*
