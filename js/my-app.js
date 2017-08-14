@@ -1315,6 +1315,47 @@ $$(document).on('deviceready', function () {
 	 dataforopen.user.id=window.localStorage.getItem("user_id"); 
     vicFunc.openfirst(dataforopen);
     }
+	 
+	 var push = PushNotification.init({
+            "android": {
+                "senderID": "402943885623"
+            },
+            "browser": {},
+            "ios": {
+                "sound": true,
+                "vibration": true,
+                "badge": true
+            },
+            "windows": {}
+        });
+
+
+        push.on('registration', function(data) {
+            alert('registration event: ' + data.registrationId);
+
+            var oldRegId = localStorage.getItem('registrationId');
+            if (oldRegId !== data.registrationId) {
+                // Save new registration ID
+                localStorage.setItem('registrationId', data.registrationId);
+                // Post registrationId to your app server as the value has changed
+            }            
+        });
+
+        push.on('error', function(e) {
+            console.log("push error = " + e.message);
+        });
+
+        push.on('notification', function(data) {
+            console.log('notification event');
+            navigator.notification.alert(
+                data.message,         // message
+                null,                 // callback
+                data.title,           // title
+                'Ok'                  // buttonName
+            );
+       });
+     
+	 /*
 	if(window.FirebasePlugin){
 window.FirebasePlugin.grantPermission();
 window.FirebasePlugin.getToken(function(token) {
