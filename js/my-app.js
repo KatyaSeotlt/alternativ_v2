@@ -1335,7 +1335,12 @@ window.FirebasePlugin.onTokenRefresh(function(token) {
 }else{
 	alert('no push');
 } 
-	 
+FCMPlugin.onTokenRefresh(function(token){
+    alert("Обновили токен 2"+ token );
+});
+FCMPlugin.getToken(function(token){
+    alert("Получили токен 2"+token);
+});
 });
 
 myApp.onPageInit('map', function () {
