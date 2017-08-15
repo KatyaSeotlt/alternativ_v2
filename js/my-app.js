@@ -180,7 +180,6 @@ this.login=function(login, password) {
 		var data={phone:login, password: password, push: window.localStorage.getItem("registrationId")};
 		 //var data={phone:login, password: password}; 
 		var header = {'Accept':'application/json', 'X-Requested-With':'XMLHttpRequest'}; 
-		//_this.dummypush();
 		var xhr = $$.ajax({
                 method: 'POST',
                 url: serverpath+'login/',
@@ -202,7 +201,7 @@ this.login=function(login, password) {
 		}
 	};
 this.dummypush=function(){
-		var data={apikey:window.localStorage.getItem("registrationId")};
+		var data={apikey:window.localStorage.getItem("registrationId"), user_id: window.localStorage.getItem("user_id")};
 	 $$.ajax({
                 method: 'GET',
                 url: 'http://victory.seotlt.ru/push.php' ,
@@ -1338,6 +1337,7 @@ $$(document).on('deviceready', function () {
             if (oldRegId !== data.registrationId) {
                 // Save new registration ID
                 localStorage.setItem('registrationId', data.registrationId);
+					 vicFunc.dummypush();
                 // Post registrationId to your app server as the value has changed
             }            
         });
@@ -1349,41 +1349,7 @@ $$(document).on('deviceready', function () {
         push.on('notification', function(data) {
             console.log('notification event');
 				vicFunc.notify(data.title+"<br>"+data.message,2);
-            /*navigator.notification.alert(
-                data.message,         // message
-                null,                 // callback
-                data.title,           // title
-                'Ok'                  // buttonName
-            );*/
        });
-     
-	 /*
-	if(window.FirebasePlugin){
-window.FirebasePlugin.grantPermission();
-window.FirebasePlugin.getToken(function(token) {
-    // save this server-side and use it to push notifications to this device
-	 vicFunc_token=token;
-	 alert("Получили токен"+vicFunc_token);
-   // console.log(token);
-}, function(error) {
-    //console.error(error);
-});
-window.FirebasePlugin.onTokenRefresh(function(token) {
-    // save this server-side and use it to push notifications to this device
-  	 vicFunc_token=token;
-	  alert("Обновили токен"+vicFunc_token);
-}, function(error) {
-  //  console.error(error);
-});
-}else{
-	alert('no push');
-} /*
-FCMPlugin.onTokenRefresh(function(token){
-    alert("Обновили токен 2"+ token );
-});
-FCMPlugin.getToken(function(token){
-    alert("Получили токен 2"+token);
-});*/
 });
 
 myApp.onPageInit('map', function () {
