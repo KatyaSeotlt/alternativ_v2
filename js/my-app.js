@@ -533,7 +533,8 @@ if(userProfileData===false){
 
 /*change dates*/
     this.getmyDateFormat = function (str_date) {
-		var time = new Date(str_date);
+		var a = str_date.split(/[^0-9]/);
+		var time=new Date (a[0],a[1]-1,a[2],a[3],a[4],a[5] );
 		var month=lang.month;
 		formateddate=time.getDate()+ ' '+month[time.getMonth()];
 		return formateddate;
