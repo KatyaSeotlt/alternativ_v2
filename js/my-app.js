@@ -463,6 +463,7 @@ this.createMap = function (responseData) {
     	myMap.geoObjects.remove(routeApp);
 	}
 	if(ismapcreate!==null){
+		if(subscriptionsfrom===''){
       var myGeoObject = new ymaps.GeoObject({options:{fillColor:'00000000'}});
       myMap.geoObjects.add(myGeoObject);
       var myObjectManager = new ymaps.ObjectManager({ clusterize: true });
@@ -472,7 +473,7 @@ myObjectManager.objects.options.set({
     hasBalloon: false,
     zIndex: 500
 });
-		
+		}	
     if(subscriptionsfrom!==''){
 	     routeApp=new ymaps.route([subscriptionsfrom, subscriptionsto]);           
            routeApp.then(
