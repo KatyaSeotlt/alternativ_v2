@@ -1190,6 +1190,21 @@ this.saveNewCarClick=function(){
     myApp.closeModal('.popup-addcars');
   };     
 this.dispetcherClick=function(){
+	/*
+	  var parameters={
+          title: '<p class="topPopup popup-dpch">'+lang.dispetcherTitle+'</p>',
+          text: '<div class="item-content popup-dpch"><div class="item-inner"><a href="tel:'+lang.dispetcherPhoneCall+'" class="external link icon-only open-panel"><span class="ico icon-phone-gray"></span><span id="dispetcherPhone">'+lang.dispetcherPhone+'</span></a></div><div class="item-inner"><a href="mailto:" class="link icon-only open-panel"><span class="ico icon-mail-gray"></span><span id="dispetcherMail">dispetcher@victorymail.ru</span></a></div></div> ',
+          buttons: [
+      {
+        text: '<a href="tel:88009995566" class="external callcircle"><span class="ico icon-phone-white"></span></a>',        
+      },
+      {
+        text: '<div class="close-popup"></div>'
+      },
+      ]
+     };
+     myApp.modal(parameters); 
+	*/
         myApp.popup('.popup-dispetcher');
 };
 this.reloadClick=function(){
@@ -1426,7 +1441,7 @@ myApp.onPageInit('map-routes', function () {
     var cars='<i class="ico ico-cars-white"></i>';
      var price=Math.round(map_Routes_Detail[i].carrier_rate /map_Routes_Detail[i].route_length);//count price per km
      var publicprice='';
-     if(price>0 && price!==null){publicprice=price+'RUB/KM';}
+     if(price!==null && price>0 && price!=Infinity){publicprice=price+'RUB/KM';}
  html = html+'<div class="swiper-slide blok">'+
 '<img class="fon" src="images/pages/top_routemodal.jpg" /><div class="head">'+
 '<div class="head2">'+
@@ -1669,6 +1684,7 @@ $$(document).on('pageInit', function (e) {
         myApp.openPanel('right');      
      });
      }
+	$$('.telnumhref').attr('href', 'tel:'+lang.dispetcherPhoneCall);  
 });
 $$(document).on('pageBack', function () {
     if (!vicFunc.isLogin()) {
