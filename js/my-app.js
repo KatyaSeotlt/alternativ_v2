@@ -157,6 +157,9 @@ this.route = function(type, data, responseData){
 		case 'get_car_edit':
 			if(type=='getpath' && !_this.isUndefined(responseData)){ return {path:'settings/cars/'+responseData+'/edit', method:'GET'}; }else{ _this.changeCar(responseData);} 
 		break;
+		case 'get_dispetcher_phone_by_order_id':
+			if(type=='getpath' && !_this.isUndefined(responseData)){ return {path:'orders/'+responseData+'/contacts', method:'POST'}; }else{ _this.changeContactDispetcher(responseData);} ///orders/{order}/contacts
+		break;
 		case 'addtosubscriptions':
 			if(type=='getpath' && !_this.isUndefined(responseData)){ return {path: responseData+'/addtosubscriptions', method:'POST',accept:'text/html'};}else{_this.openInfoPopup(lang.route_set_in_subscribe);}
 		break;
@@ -799,6 +802,24 @@ this.saveSubscribe=function(){
    }
     return false;  	  
  };
+ 
+ this.changeContactDispetcher = function(responseData){
+	var phone =responseData.phone;
+	if(phone.indexOf(",")!=-1){
+		phone=substring(0, phone.indexOf(","));		
+	}
+	phone = phone.replace(/[\(\)\-\s]/g, "");
+	/*phone = phone.replace( "(", "");
+	phone = phone.replace( ")", "");
+	phone = phone.replace( "-", "");*/
+	
+	$$('.call-action .external.telnumhref').attr('href', 'tel:'+phone);
+	$$('.row-action .external.telnumhref').attr('href', 'tel:'+phone);
+	$$('#dispetcherMail').text(responseData.email);
+	$$('#dispetcherPhone').text(responseData.phone);
+	$$('.telnumhref').attr('href', 'tel:'+phone);
+ };
+ 
 /*show routes data*/
  this.routesshow = function(responseData, parent){
 	var blockclass='';
@@ -1518,6 +1539,7 @@ html=html+'</div>';
 }
 $$('#maproutesblocks .swiper-wrapper').html(html);
 $$('.add_dispatch').on('click', function(){
+	 vicFunc.getdataserver('get_dispetcher_phone_by_order_id','',$$(this).attr('name'));
     myApp.popup('.popup-action');
     openRoute=$$(this).attr('name');
     });   
