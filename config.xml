@@ -20,7 +20,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <icon src="images/pages/logo.png" />
+    <icon src="res/icons/android/logo.png" />
     <platform name="android">
      <Preference name = 'phonegap-version' value = 'cli-7.0.1' /> 
      <preference name = 'pgb-builder-version' value = '2' />
