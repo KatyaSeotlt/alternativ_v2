@@ -2,7 +2,7 @@
     <widget xmlns   = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "com.seotlt.victory"
-        version     = "1.1.0" >
+        version     = "1.2.0" >
  
     <name>Victorytracker</name>
     <description>
@@ -29,12 +29,12 @@
         <feature name="Geolocation">
             <param name="android-package" value="org.apache.cordova.GeoBroker" />
         </feature>
-        <icon platform="android" qualifier="ldpi" src="images/pages/logo.png" />
-        <icon platform="android" qualifier="mdpi" src="images/pages/logo.png" />
-        <icon platform="android" qualifier="hdpi" src="images/pages/logo.png" />
-        <icon platform="android" qualifier="xhdpi" src="images/pages/logo.png" />
-        <icon platform="android" qualifier="xxhdpi" src="images/pages/logo.png" />
-        <icon platform="android" qualifier="fr-xxhdpi" src="images/pages/logo.png" />
+        <icon platform="android" qualifier="ldpi" src="res/icons/android/logo.png" />
+        <icon platform="android" qualifier="mdpi" src="res/icons/android/mipmap-mdpi/ic_launcher.png" />
+        <icon platform="android" qualifier="hdpi" src="res/icons/android/mipmap-hdpi/ic_launcher.png" />
+        <icon platform="android" qualifier="xhdpi" src="res/icons/android/mipmap-xhdpi/ic_launcher.png" />
+        <icon platform="android" qualifier="xxhdpi" src="res/icons/android/mipmap-xxhdpi/ic_launcher.png" />
+        <icon platform="android" qualifier="fr-xxhdpi" src="res/icons/android/mipmap-xxxhdpi/ic_launcher.png" />
         <manifest>
             <uses-permission name="android.permission.ACCESS_COARSE_LOCATION" />
             <uses-permission name="android.permission.ACCESS_FINE_LOCATION" />
@@ -52,21 +52,21 @@
          <preference name="StatusBarBackgroundColor" value="#0d1f24" />
          <preference name="StatusBarStyle" value="lightcontent" />
          
-       <icon platform="ios" src="res/icons/ios/Icon-App-29x29@1x.png" width="29" height="29" />
-       <icon platform="ios" src="res/icons/ios/Icon-App-29x29@2x.png" width="58" height="58" />
-       <icon platform="ios" src="res/icons/ios/Icon-App-40x40@1x.png" width="40" height="40" />
-       <icon platform="ios" src="res/icons/ios/Icon-App-40x40@2x.png" width="80" height="80" />
-       <icon platform="ios" src="res/icons/ios/Icon-Small-50x50@1x.png" width="50" height="50" />
-       <icon platform="ios" src="res/icons/ios/Icon-Small-50x50@2x.png" width="100" height="100" />
-       <icon platform="ios" src="res/icons/ios/Icon-App-57x57@1x.png" width="57" height="57" />
-       <icon platform="ios" src="res/icons/ios/Icon-App-57x57@2x.png" width="114" height="114" />
-       <icon platform="ios" src="res/icons/ios/Icon-App-60x60@1x.png" width="60" height="60" />
-       <icon platform="ios" src="res/icons/ios/Icon-App-60x60@2x.png" width="120" height="120" />
-       <icon platform="ios" src="res/icons/ios/Icon-App-60x60@3x.png" width="180" height="180" />
-       <icon platform="ios" src="res/icons/ios/Icon-App-72x72@1x.png" width="72" height="72" />
-       <icon platform="ios" src="res/icons/ios/Icon-App-72x72@2x.png" width="144" height="144" />
-       <icon platform="ios" src="res/icons/ios/Icon-App-76x76@1x.png" width="76" height="76" />
-       <icon platform="ios" src="res/icons/ios/Icon-App-76x76@2x.png" width="152" height="152" />
+       <icon platform="ios" src="res/icons/ios/Icon-Small" width="29" height="29" />
+       <icon platform="ios" src="res/icons/ios/Icon-58.png" width="58" height="58" />
+       <icon platform="ios" src="res/icons/ios/Icon-Small-40.png" width="40" height="40" />
+       <icon platform="ios" src="res/icons/ios/Icon-40@2x.png" width="80" height="80" />
+       <icon platform="ios" src="res/icons/ios/Icon-50.png" width="50" height="50" />
+       <icon platform="ios" src="res/icons/ios/Icon-Small-50@2x.png" width="100" height="100" />
+       <icon platform="ios" src="res/icons/ios/icon.png" width="57" height="57" />
+       <icon platform="ios" src="res/icons/ios/Icon@2x.png" width="114" height="114" />
+       <icon platform="ios" src="res/icons/ios/Icon-60.png" width="60" height="60" />
+       <icon platform="ios" src="res/icons/ios/Icon-60@2x.png" width="120" height="120" />
+       <icon platform="ios" src="res/icons/ios/Icon-60@3x.png" width="180" height="180" />
+       <icon platform="ios" src="res/icons/ios/Icon-72.png" width="72" height="72" />
+       <icon platform="ios" src="res/icons/ios/Icon-72@2x.png" width="144" height="144" />
+       <icon platform="ios" src="res/icons/ios/Icon-76.png" width="76" height="76" />
+       <icon platform="ios" src="res/icons/ios/Icon-76@2x.pngg" width="152" height="152" />
        
        
       <splash platform="ios" src="res/screens/ios/screen-iphone-portrait.png" width="320" height="480" />
