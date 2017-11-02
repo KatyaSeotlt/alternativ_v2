@@ -2,7 +2,7 @@
     <widget xmlns   = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/1.0"
         id          = "ru.seotlt.victory"
-        version     = "1.2.2" >
+        version     = "1.2.3" >
  
     <name>Victorytracker</name>
     <description>
@@ -52,7 +52,7 @@
          <preference name="StatusBarBackgroundColor" value="#0d1f24" />
          <preference name="StatusBarStyle" value="lightcontent" />
          
-       <icon platform="ios" src="res/icons/ios/Icon-Small" width="29" height="29" />
+       <icon platform="ios" src="res/icons/ios/Icon-Small.png" width="29" height="29" />
        <icon platform="ios" src="res/icons/ios/Icon-58.png" width="58" height="58" />
        <icon platform="ios" src="res/icons/ios/Icon-Small-40.png" width="40" height="40" />
        <icon platform="ios" src="res/icons/ios/Icon-40@2x.png" width="80" height="80" />
@@ -66,7 +66,7 @@
        <icon platform="ios" src="res/icons/ios/Icon-72.png" width="72" height="72" />
        <icon platform="ios" src="res/icons/ios/Icon-72@2x.png" width="144" height="144" />
        <icon platform="ios" src="res/icons/ios/Icon-76.png" width="76" height="76" />
-       <icon platform="ios" src="res/icons/ios/Icon-76@2x.pngg" width="152" height="152" />
+       <icon platform="ios" src="res/icons/ios/Icon-76@2x.png" width="152" height="152" />
        
        
       <splash platform="ios" src="res/screens/ios/screen-iphone-portrait.png" width="320" height="480" />
