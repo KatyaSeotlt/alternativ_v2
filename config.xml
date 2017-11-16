@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
     <widget xmlns   = "http://www.w3.org/ns/widgets"
         xmlns:gap   = "http://phonegap.com/ns/1.0"
-        id          = "com.seotlt.victory"
-        version     = "1.1.0" >
+        id          = "ru.seotlt.victory"
+        version     = "1.2.3" >
  
     <name>Victorytracker</name>
     <description>
@@ -20,7 +20,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <icon src="images/pages/logo.png" />
+    <icon src="res/android/logo.png" />
     <platform name="android">
      <Preference name = 'phonegap-version' value = 'cli-7.0.1' /> 
      <preference name = 'pgb-builder-version' value = '2' />
@@ -29,12 +29,21 @@
         <feature name="Geolocation">
             <param name="android-package" value="org.apache.cordova.GeoBroker" />
         </feature>
+<<<<<<< HEAD
         <icon platform="android" qualifier="ldpi" src="res/icons/android/logo.png" />
         <icon platform="android" qualifier="mdpi" src="res/icons/android/mipmap-mdpi/ic_launcher.png" />
         <icon platform="android" qualifier="hdpi" src="res/icons/android/mipmap-hdpi/ic_launcher.png" />
         <icon platform="android" qualifier="xhdpi" src="res/icons/android/mipmap-xhdpi/ic_launcher.png" />
         <icon platform="android" qualifier="xxhdpi" src="res/icons/android/mipmap-xxhdpi/ic_launcher.png" />
         <icon platform="android" qualifier="fr-xxhdpi" src="res/icons/android/mipmap-xxxhdpi/ic_launcher.png" />
+=======
+        <icon platform="android" qualifier="ldpi" src="res/android/logo.png" />
+        <icon platform="android" qualifier="mdpi" src="res/android/mipmap-mdpi/ic_launcher.png" />
+        <icon platform="android" qualifier="hdpi" src="res/android/mipmap-hdpi/ic_launcher.png" />
+        <icon platform="android" qualifier="xhdpi" src="res/android/mipmap-xhdpi/ic_launcher.png" />
+        <icon platform="android" qualifier="xxhdpi" src="res/android/mipmap-xxhdpi/ic_launcher.png" />
+        <icon platform="android" qualifier="fr-xxhdpi" src="res/android/mipmap-xxxhdpi/ic_launcher.png" />
+>>>>>>> d071290ad22792b133f2e6f1708ae3ce3bd68b06
         <manifest>
             <uses-permission name="android.permission.ACCESS_COARSE_LOCATION" />
             <uses-permission name="android.permission.ACCESS_FINE_LOCATION" />
@@ -52,7 +61,11 @@
          <preference name="StatusBarBackgroundColor" value="#0d1f24" />
          <preference name="StatusBarStyle" value="lightcontent" />
          
+<<<<<<< HEAD
        <icon platform="ios" src="res/icons/ios/Icon-Small" width="29" height="29" />
+=======
+       <icon platform="ios" src="res/icons/ios/Icon-Small.png" width="29" height="29" />
+>>>>>>> d071290ad22792b133f2e6f1708ae3ce3bd68b06
        <icon platform="ios" src="res/icons/ios/Icon-58.png" width="58" height="58" />
        <icon platform="ios" src="res/icons/ios/Icon-Small-40.png" width="40" height="40" />
        <icon platform="ios" src="res/icons/ios/Icon-40@2x.png" width="80" height="80" />
@@ -66,7 +79,11 @@
        <icon platform="ios" src="res/icons/ios/Icon-72.png" width="72" height="72" />
        <icon platform="ios" src="res/icons/ios/Icon-72@2x.png" width="144" height="144" />
        <icon platform="ios" src="res/icons/ios/Icon-76.png" width="76" height="76" />
+<<<<<<< HEAD
        <icon platform="ios" src="res/icons/ios/Icon-76@2x.pngg" width="152" height="152" />
+=======
+       <icon platform="ios" src="res/icons/ios/Icon-76@2x.png" width="152" height="152" />
+>>>>>>> d071290ad22792b133f2e6f1708ae3ce3bd68b06
        
        
       <splash platform="ios" src="res/screens/ios/screen-iphone-portrait.png" width="320" height="480" />
