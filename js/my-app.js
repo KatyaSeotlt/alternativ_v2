@@ -825,6 +825,7 @@ function victoryExchangeFunc() {
 
               },
               function(error) {
+                _this.openInfoPopup(lang.routes_error + error.message);
                 showlog(error.message);
               }
             );
