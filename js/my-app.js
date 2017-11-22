@@ -1436,7 +1436,7 @@ function victoryExchangeFunc() {
     $$('#menuperson').on('click', function() {
       myApp.closeModal('.picker-modal.modal-in');
     });
-  /*  window.Echo = new Echo({
+    window.Echo = new Echo({
       broadcaster: 'socket.io',
       host: 'http://victrack.ru:6002',
       auth: {
@@ -1481,7 +1481,7 @@ function victoryExchangeFunc() {
           vicFunc.notify(e.text);
           showlog(e);
         });
-    }*/
+    }
   };
   this.activationuserlogin = function(responseData) {
     if (responseData.message == "auth.timeout") {
