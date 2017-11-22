@@ -78,7 +78,5 @@
   <plugin name="cordova-plugin-whitelist" spec="~1.2.0"/>
   <plugin name="cordova-plugin-console" spec="~1.0.1"/>
 
-    <variable name="SENDER_ID" value="402943885623"/>
-  </plugin>
   <plugin name="cordova-plugin-dialogs" source="npm" spec="~1.2.1"/>
 </widget>
