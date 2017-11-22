@@ -301,6 +301,10 @@ div.popup.popup-info.modal-in {
   margin-top: -113px;
   margin-left: -45%;
 }
+#msg-info-popup{
+  padding-left: 10px;
+  text-align: center;
+}
 div.popup.popup-info-ticket.modal-in div.content-block,
 div.popup.popup-info.modal-in div.content-block {
   display: -webkit-box !important;
@@ -979,7 +983,7 @@ html.pixel-ratio-2 .list-block .item-inner.Hreg:after {
   justify-content: center;
 }
 /*Список маршртутова*/
-.routeblock {
+.routeblock, .routeblocks{
   background: #ffffff;
   padding: 16px;
   margin-bottom: 16px;

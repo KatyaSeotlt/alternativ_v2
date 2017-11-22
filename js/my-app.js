@@ -1238,7 +1238,7 @@ function victoryExchangeFunc() {
       }
     }
     if (routeHtml === '') {
-      routeHtml = '<div class="routeblock"><div class="nodata">' + lang.routes_not_found + '</div></div>';
+      routeHtml = '<div class="routeblocks"><div class="nodata">' + lang.routes_not_found + '</div></div>';
     }
     //routesshow
     if (parent == '#listblocks' && search == 1) {
