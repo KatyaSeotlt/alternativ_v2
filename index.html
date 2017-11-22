@@ -11,12 +11,7 @@
         <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
         <!--link rel="stylesheet" href="lib/framework7/css/framework7-icons.css"-->
         <link rel="stylesheet/less" type="text/css" href="css/styles.less">
-        <script src="js/less.min.js" type="text/javascript"></script>
-        <script>
-        less.modifyVars({
-        '@dpscale': (1/window.devicePixelRatio)+0.5
-         });
-        </script>
+
     </head>
     <body>
  <!-- Status bar overlay for full screen mode (PhoneGap) -->
@@ -903,8 +898,13 @@
           <!--карта для определения расстояний-->
            <div id="mapdummy"></div>
               <!--Все всплывающие окна здесь закончились-->
-
-        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&load=package.route&onerror=map_error" type="text/javascript"></script>          
+              <script src="js/less.min.js" type="text/javascript"></script>
+              <script>
+              less.modifyVars({
+              '@dpscale': (1/window.devicePixelRatio)+0.5
+               });
+              </script>
+        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&load=package.route&onerror=map_error" type="text/javascript"></script>
          <script type="text/javascript" src="js/echo.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/socket.io.js"></script>
