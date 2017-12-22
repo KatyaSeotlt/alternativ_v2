@@ -952,7 +952,7 @@ html.pixel-ratio-2 .list-block .item-inner.Hreg:after {
 .save {
   color: #ffffff;
   background: #00897b;
-  background: url('../images/pages/ic_check_white.svg') #00897b center top no-repeat;
+  /*background: url('../images/pages/ic_check_white.svg') #00897b center top no-repeat;*/
   border: #00897b;
   width: 48px;
   height: 48px;
@@ -2848,31 +2848,27 @@ div.search-block div.begin div:nth-child(3).address-name {
   width: 100%;
   display: block;
 }
+
+#loginPassword,
 .logo2 {
-  background-image: url(images/pages/fon.jpq);
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-size: 24px 27px;
-  background-position: 98% 50%;
-  cursor: auto;
-  border: none;
-  min-height: 30px;
+  width: 100%;
+  font-size: 15px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+  border: 1px solid #ffffff;
+  -webkit-appearance: none;
+  height: 30px;
+  padding: 10px;
+  box-sizing: border-box;
   background: rgba(240, 248, 255, 0);
   color: white;
 }
-#loginPassword,
-.logo2 {
-  width: 300px;
-  font-size: 15px;
-  margin-bottom: 10px;
-  margin-top: 5px;
-  border-bottom: 1px solid #ffffff;
-  -webkit-appearance: none;
-}
 .gor {
-  width: 100%;
+  width: 90%;
   text-align: left;
   font-size: 16px;
+  padding-right: 15px;
+  margin: 0 auto;
 }
 .tex {
   color: lightgrey;
@@ -2928,4 +2924,8 @@ div.search-block div.begin div:nth-child(3).address-name {
 .notifications .close-notification {
   font-size: 1px;
   border: none;
+}
+.close_theme.btn-main{
+  height: 28px;
+  line-height: 28px;
 }

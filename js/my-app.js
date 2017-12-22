@@ -30,7 +30,7 @@ var showMessage = 0;
 var search_data = {};
 var isSearch = 0;
 var vicFunc_token = "";
-
+var cityCountRoutes = {};
 
 function map_error(e) {
 
@@ -579,6 +579,7 @@ function victoryExchangeFunc() {
               vicFunc.setAccessToken(xhr, msg);
             } else {
               if( xhr.status === 401 ){
+
               window.localStorage.clear();
               myApp.closePanel();
               _this.openInfoPopup(lang.serveer_disconnect);
@@ -648,8 +649,19 @@ function victoryExchangeFunc() {
       window.localStorage.setItem("access_token", xhr.getResponseHeader('Authorization'));
     }
   };
+  this.closeTheme = function(theme_id) {
+    this.getdataserver('ticket_close', '', theme_id);
+    vicFunc.getdataserver('tickets', '');
+  /*  $$('#messages-screen').hide();
+    $$('#theme-screen').show();
+    $$('.messages-tab').removeClass('active');
+    $$('.theme-tab').addClass('active');*/
+  };
   this.ticketThemeView = function(responseData) {
     var html = '';
+  if(responseData.state_id!=3){
+    html = html +  '<div class="close_theme btn-main" onclick="vicFunc.closeTheme(' + responseData.id + ')">Закрыть тему</div>';
+  }
     var messages = responseData.messages;
     for (var theme in messages) {
       if (messages.hasOwnProperty(theme)) {
@@ -741,10 +753,12 @@ function victoryExchangeFunc() {
         if (!_this.isUndefined(responseData[theme].messages_count)) {
           count_message = responseData[theme].messages_count;
         }
+        if(responseData[theme].state_id!=3){
         html = '<div class="theme-block" id="theme' + responseData[theme].id + '">' +
           '<div class="themeico ' + className[responseData[theme].state_id] + '">' + count_message +
 					 '</div><div class="themesubject">' + responseData[theme].subject.substr(0, 28) + '<span>' + responseData[theme].subject.substr(0, 30) + '</span></div>' +
           '</div>'+html;
+        }
       }
     }
     $$('#theme-screen').html(html);
@@ -1009,7 +1023,7 @@ function victoryExchangeFunc() {
 
   };
   this.setKMonsubscribes = function(route, mynewroute) {
-    var routeLength = Math.round(route.getLength() / 10) / 100;
+    var routeLength = this.calcKMSfromRoutes(route.getLength());
     for (var t in mynewroute) {
       if (mynewroute.hasOwnProperty(t)) {
         if (mynewroute[t]._value == route) {
@@ -1018,6 +1032,9 @@ function victoryExchangeFunc() {
       }
     }
   };
+  this.calcKMSfromRoutes = function(routeLength){
+    return Math.round(routeLength / 10) / 100;
+  };
   this.showSubscribe = function() {
     var html = '';
     new ymaps.Map("mapdummy", {
@@ -1025,13 +1042,21 @@ function victoryExchangeFunc() {
       zoom: 9
     });
     var mynewroute = [];
+    var cashRoute = [];
     for (var i in userProfileData.subscriptions) {
+      cashRoute[userProfileData.subscriptions[i].id]='';
       if (userProfileData.subscriptions.hasOwnProperty(i)) {
+        if( _this.isUndefined(cityCountRoutes[userProfileData.subscriptions[i].city_from.CityName+userProfileData.subscriptions[i].city_to.CityName]) ){
         mynewroute[userProfileData.subscriptions[i].id] = new ymaps.route([userProfileData.subscriptions[i].city_from.CityName, userProfileData.subscriptions[i].city_to.CityName]);
         mynewroute[userProfileData.subscriptions[i].id].then(
           function(route) {
             _this.setKMonsubscribes(route, mynewroute);
+            cityCountRoutes[route.requestPoints[0]+route.requestPoints[1]]={'route':route};
+
           });
+        }else{
+         cashRoute[userProfileData.subscriptions[i].id] = this.calcKMSfromRoutes(cityCountRoutes[userProfileData.subscriptions[i].city_from.CityName+userProfileData.subscriptions[i].city_to.CityName].route.getLength()) + ' км';
+        }
         html = html + '<div class="subscribeblock" id="subsc' + userProfileData.subscriptions[i].id + '">' +
           '<div class="begin">' +
           '<span class="icon_map_routes"></span>' +
@@ -1045,7 +1070,7 @@ function victoryExchangeFunc() {
           '</div>' +
           '</div>' +
           '<div class="itog">' +
-          '<div class="long"><span class="ico icon-dist"></span><span id="longcount' + userProfileData.subscriptions[i].id + '"> </span></div>' +
+          '<div class="long"><span class="ico icon-dist"></span><span id="longcount' + userProfileData.subscriptions[i].id + '">'+cashRoute[userProfileData.subscriptions[i].id]+ '</span></div>' +
           '<div class="compass showinmap" to="' + userProfileData.subscriptions[i].city_to.CityName + '" from="' + userProfileData.subscriptions[i].city_from.CityName + '"><span class="ico icon-compass"></span></div>' +
           '</div>' +
           '<div class="stat">' +
@@ -1148,12 +1173,18 @@ function victoryExchangeFunc() {
       mainView.router.loadPage('pages/map.html');
 
     });
+    if( _this.isUndefined(cityCountRoutes[responseData.city_from_city+responseData.city_to_city]) ){
     new ymaps.route([responseData.city_from_city, responseData.city_to_city]).then(
       function(route) {
-        var routeLength = route.getLength();
+        var routeLength =  this.calcKMSfromRoutes(route.getLength());
         $$('#longcount' + responseData.id).html(routeLength + ' км');
+        cityCountRoutes[route.requestPoints[0]+route.requestPoints[1]]={'route':route};
       }
     );
+  }else{
+    var routeLength =  this.calcKMSfromRoutes(cityCountRoutes[responseData.city_from_city+responseData.city_to_city].route.getLength());
+    $$('#longcount' + responseData.id).html(routeLength + ' км');
+  }
   };
   this.isRouteInSubscriptions = function(startpoint, endpoint) {
     for (var v in userProfileData.subscriptions) {
