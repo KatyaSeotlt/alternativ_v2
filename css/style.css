@@ -2929,3 +2929,22 @@ div.search-block div.begin div:nth-child(3).address-name {
   height: 28px;
   line-height: 28px;
 }
+@media (max-height:600px){
+  .logo{
+    max-width: 100px;
+  }
+  .purpose, .reload, .dispetcher{
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+  }
+  .purpose {
+    top: 54px;
+  }
+  .reload {
+    top: 110px;
+  }
+  .dispetcher {
+    top: 166px;
+  }
+}
