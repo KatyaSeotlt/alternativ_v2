@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="ru.seotlt.victory" version="1.2.7">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="ru.seotlt.victory" version="1.2.8">
   <name>Victorytracker</name>
   <description>
     Victorytracker
@@ -73,6 +73,9 @@
     <feature name="StatusBar">
       <param name="ios-package" value="CDVStatusBar" onload="true"/>
     </feature>
+    <config-file platform="ios" target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+    <string>This app will now only track your location when the screen is on and the app is displayed.</string>
+    </config-file>
   </platform>
   <preference name="DisallowOverscroll" value="true"/>
   <plugin name="cordova-plugin-whitelist" spec="~1.2.0"/>
