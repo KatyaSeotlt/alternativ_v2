@@ -582,7 +582,7 @@ function victoryExchangeFunc() {
 
               window.localStorage.clear();
               myApp.closePanel();
-              _this.openInfoPopup(lang.serveer_disconnect);
+            /*  _this.openInfoPopup(lang.serveer_disconnect);*/
               mainView.router.loadPage("index.html");
             }
             }
