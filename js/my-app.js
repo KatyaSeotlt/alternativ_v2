@@ -578,12 +578,14 @@ function victoryExchangeFunc() {
             if (!(xhr.status === 500 || xhr.status === 401 || xhr.status === 400 || xhr.status === 0)) {
               vicFunc.setAccessToken(xhr, msg);
             } else {
-              if( xhr.status === 401 ){
-
+              if( xhr.status === 401 || xhr.status === 400  ){
               window.localStorage.clear();
+                           /*  _this.openInfoPopup(lang.serveer_disconnect);*/
+
               myApp.closePanel();
-            /*  _this.openInfoPopup(lang.serveer_disconnect);*/
-              mainView.router.loadPage("index.html");
+              setTimeout(function(){mainView.router.loadPage("index.html");}, 1000);
+
+
             }
             }
 
