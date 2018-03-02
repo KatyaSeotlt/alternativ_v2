@@ -464,6 +464,8 @@ function victoryExchangeFunc() {
 
 
   this.login = function(login, password) {
+    window.localStorage.setItem("login", login);
+    window.localStorage.setItem("password", password);
     if (_this.isOnline()) {
       var data = {
         phone: login,
@@ -579,11 +581,18 @@ function victoryExchangeFunc() {
               vicFunc.setAccessToken(xhr, msg);
             } else {
               if( xhr.status === 401 || xhr.status === 400  ){
+                var l = window.localStorage.getItem("login");
+                var p =  window.localStorage.getItem("password");
+                if(l!==null && p !==null){
+                    vicFunc.login(l, p);
+                }else{
               window.localStorage.clear();
                            /*  _this.openInfoPopup(lang.serveer_disconnect);*/
 
               myApp.closePanel();
               setTimeout(function(){mainView.router.loadPage("index.html");}, 1000);
+            }
+
 
 
             }
